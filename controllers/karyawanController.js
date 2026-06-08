@@ -4,7 +4,7 @@ exports.index = async (req, res) => {
     try {
 
         const [karyawan] = await db.query(
-            'SELECT * FROM karyawan ORDER BY id_karyawan DESC'
+            'SELECT * FROM TABLE_KARYAWAN ORDER BY ID_Karyawan DESC'
         );
 
         res.render('karyawan/index', {
@@ -31,8 +31,8 @@ exports.store = async (req, res) => {
         } = req.body;
 
         await db.query(
-            `INSERT INTO karyawan
-            (nama_karyawan, jabatan, telepon)
+            `INSERT INTO TABLE_KARYAWAN
+            (Nama, Jabatan, NO_Hp)
             VALUES (?, ?, ?)`,
             [nama_karyawan, jabatan, telepon]
         );
@@ -51,7 +51,7 @@ exports.editForm = async (req, res) => {
         const { id } = req.params;
 
         const [karyawan] = await db.query(
-            'SELECT * FROM karyawan WHERE id_karyawan = ?',
+            'SELECT * FROM TABLE_KARYAWAN WHERE ID_Karyawan = ?',
             [id]
         );
 
@@ -77,12 +77,12 @@ exports.update = async (req, res) => {
         } = req.body;
 
         await db.query(
-            `UPDATE karyawan
+            `UPDATE TABLE_KARYAWAN
             SET
-                nama_karyawan = ?,
-                jabatan = ?,
-                telepon = ?
-            WHERE id_karyawan = ?`,
+                Nama = ?,
+                Jabatan = ?,
+                NO_Hp = ?
+            WHERE ID_Karyawan = ?`,
             [nama_karyawan, jabatan, telepon, id]
         );
 
@@ -100,7 +100,7 @@ exports.destroy = async (req, res) => {
         const { id } = req.params;
 
         await db.query(
-            'DELETE FROM karyawan WHERE id_karyawan = ?',
+            'DELETE FROM TABLE_KARYAWAN WHERE ID_Karyawan = ?',
             [id]
         );
 
