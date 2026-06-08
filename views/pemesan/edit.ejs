@@ -1,0 +1,34 @@
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Edit Data Pemesan</h2>
+        <a href="/pemesan" class="btn btn-secondary btn-sm">← Kembali</a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body p-4">
+            <form action="/pemesan/edit/<%= pemesan.ID_Pelanggan %>" method="POST">
+                <div class="mb-3">
+                    <label for="nama_pelanggan" class="form-label font-weight-bold">Nama Lengkap Pelanggan</label>
+                    <input type="text" id="nama_pelanggan" name="nama_pelanggan" value="<%= pemesan.Nama_Pelanggan %>" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="telepon" class="form-label font-weight-bold">No. HP / Telepon</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                        <input type="text" id="telepon" name="telepon" value="<%= pemesan.NO_Hp %>" class="form-control">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label font-weight-bold">Alamat Email</label>
+                    <input type="email" id="email" name="email" value="<%= pemesan.Email %>" class="form-control">
+                </div>
+
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                    <button type="submit" class="btn btn-primary">Update Data</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

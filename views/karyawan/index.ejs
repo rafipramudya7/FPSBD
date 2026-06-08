@@ -14,7 +14,7 @@
         </tr>
     </thead>
     <tbody>
-        <% karyawan.forEach((k, i) => { %>
+        <% karyawan.forEach(function(k, i) { %>
         <tr>
             <td><%= i + 1 %></td>
             <td><%= k.Nama %></td>
@@ -28,6 +28,7 @@
             </td>
         </tr>
         <% }) %>
+        
         <% if (karyawan.length === 0) { %>
         <tr>
             <td colspan="5" class="text-center text-muted">Belum ada data karyawan</td>

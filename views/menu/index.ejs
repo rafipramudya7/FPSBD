@@ -1,0 +1,33 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Daftar Menu Makanan</h2>
+    <a href="/menu/create" class="btn btn-primary">+ Tambah Menu</a>
+</div>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>No</th>
+            <th>Nama Menu</th>
+            <th>Harga</th>
+            <th>Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% menu.forEach(function(m, i) { %>
+        <tr>
+            <td><%= i + 1 %></td>
+            <td><%= m.Nama_Menu %></td>
+            <td>Rp <%= m.Harga.toLocaleString('id-ID') %></td>
+            <td>
+                <a href="/menu/edit/<%= m.ID_Menu %>" class="btn btn-warning btn-sm">Edit</a>
+                <a href="/menu/delete/<%= m.ID_Menu %>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus menu ini?')">Hapus</a>
+            </td>
+        </tr>
+        <% }) %>
+        <% if (menu.length === 0) { %>
+        <tr>
+            <td colspan="4" class="text-center text-muted">Belum ada data menu</td>
+        </tr>
+        <% } %>
+    </tbody>
+</table>

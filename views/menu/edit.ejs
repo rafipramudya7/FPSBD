@@ -1,0 +1,29 @@
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Edit Data Menu Kuliner</h2>
+        <a href="/menu" class="btn btn-secondary btn-sm">← Kembali</a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body p-4">
+            <form action="/menu/edit/<%= menu.ID_Menu %>" method="POST">
+                <div class="mb-3">
+                    <label for="nama_menu" class="form-label font-weight-bold">Nama Menu Makanan / Minuman</label>
+                    <input type="text" id="nama_menu" name="nama_menu" value="<%= menu.Nama_Menu %>" class="form-control" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="harga" class="form-label font-weight-bold">Harga Jual (Rp)</label>
+                    <div class="input-group">
+                        <span class="input-group-text">Rp</span>
+                        <input type="number" id="harga" name="harga" value="<%= menu.Harga %>" class="form-control" min="0" required>
+                    </div>
+                </div>
+
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                    <button type="submit" class="btn btn-primary">Update Menu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

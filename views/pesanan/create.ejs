@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buat Pemesanan Baru - FPSBD Catering</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+</head>
+<body class="bg-light p-4">
+
+    <div class="container bg-white p-4 rounded shadow-sm" style="max-width: 900px;">
+        <div class="d-flex justify-content-between align-items-center mb-4 border-b pb-2">
+            <h2>
+                <a href="/" class="text-decoration-none text-dark me-2"><i class="bi bi-arrow-left-circle-fill"></i></a>
+                Buat Pemesanan Catering Baru
+            </h2>
+        </div>
+
+        <form action="/pesanan/create" method="POST">
+            <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <label for="id_pelanggan" class="form-label fw-bold">Nama Pelanggan (Pemesan)</label>
+                    <select name="id_pelanggan" id="id_pelanggan" class="form-select" required>
+                        <option value="">-- Pilih Pelanggan --</option>
+                        <% pelanggan.forEach(function(p) { %>
+                            <option value="<%= p.ID_Pelanggan %>"><%= p.Nama_Pelanggan %> (<%= p.NO_Hp %>)</option>
+                        <% }) %>
+                    </select>
+                </div>
+                
+                <div class="col-md-6">
+                    <label for="id_karyawan" class="form-label fw-bold">Staf Eksekutor Transaksi</label>
+                    <select name="id_karyawan" id="id_karyawan" class="form-select" required>
+                        <option value="">-- Pilih Staf Penanggung Jawab --</option>
+                        <% karyawan.forEach(function(k) { %>
+                            <option value="<%= k.ID_Karyawan %>"><%= k.Nama %> (<%= k.Jabatan %>)</option>
+                        <% }) %>
+                    </select>
+                </div>
+
+                <div class="col-12">
+                    <label for="alamat_tujuan" class="form-label fw-bold">Alamat Pengiriman Catering</label>
+                    <textarea name="alamat_tujuan" id="alamat_tujuan" class="form-control" rows="2" placeholder="Masukkan alamat lengkap pengantaran" required></textarea>
+                </div>
+            </div>
+
+            <div class="card mb-4 border-secondary-subtle">
+                <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="bi bi-list-stars me-2"></i>Daftar Item Pesanan</h5>
+                    <button type="button" class="btn btn-success btn-sm" id="btn-tambah-baris">
+                        <i class="bi bi-plus-circle"></i> Tambah Baris
+                    </button>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-hover mb-0 align-middle" id="tabel-pesanan">
+                        <thead class="table-light">
+                            <tr>
+                                <th style="width: 65%">Nama Pesanan / Menu</th>
+                                <th style="width: 25%">Quantity (Porsi)</th>
+                                <th style="width: 10%" class="text-center">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="container-baris">
+                            <tr>
+                                <td>
+                                    <select name="id_menu[]" class="form-select" required>
+                                        <option value="">-- Pilih Menu --</option>
+                                        <% menu.forEach(function(m) { %>
+                                            <option value="<%= m.ID_Menu %>"><%= m.Nama_Menu %> - Rp <%= m.Harga.toLocaleString('id-ID') %></option>
+                                        <% }) %>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="number" name="jumlah_porsi[]" class="form-control" min="1" value="1" required>
+                                </td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-outline-danger btn-sm btn-hapus-baris" disabled>
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-danger btn-lg fw-bold shadow-sm">
+                    <i class="bi bi-credit-card-2-back-fill me-2"></i> Proses & Bayar via Gateway
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('btn-tambah-baris').addEventListener('click', function() {
+            const tbody = document.getElementById('container-baris');
+            const barisPertama = tbody.querySelector('tr');
+            
+            const barisBaru = barisPertama.cloneNode(true);
+            
+            barisBaru.querySelector('select').value = "";
+            barisBaru.querySelector('input').value = "1";
+            
+            const btnHapus = barisBaru.querySelector('.btn-hapus-baris');
+            btnHapus.disabled = false;
+            
+            tbody.appendChild(barisBaru);
+            
+            if (tbody.querySelectorAll('tr').length > 1) {
+                barisPertama.querySelector('.btn-hapus-baris').disabled = false;
+            }
+        });
+
+        document.getElementById('container-baris').addEventListener('click', function(e) {
+            if (e.target.closest('.btn-hapus-baris')) {
+                const tbody = document.getElementById('container-baris');
+                const baris = e.target.closest('tr');
+                
+                if (tbody.querySelectorAll('tr').length > 1) {
+                    baris.remove();
+                }
+                
+                if (tbody.querySelectorAll('tr').length === 1) {
+                    tbody.querySelector('tr').querySelector('.btn-hapus-baris').disabled = true;
+                }
+            }
+        });
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

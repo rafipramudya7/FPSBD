@@ -1,0 +1,42 @@
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-success shadow">
+                <div class="card-header bg-success text-white text-center py-3">
+                    <h4><i class="bi bi-check-circle-fill"></i> Pembayaran Berhasil!</h4>
+                    <small>Simulasi Gateway Payment Terkonfirmasi Otomatis</small>
+                </div>
+                <div class="card-body p-4">
+                    <h5 class="text-center text-muted mb-4">INVOICE #00<%= data.ID_Transaksi %></h5>
+                    
+                    <table class="table table-borderless">
+                        <tr>
+                            <td><strong>Nama Pemesan</strong></td>
+                            <td>: <%= data.Nama_Pelanggan %></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Menu Dipesan</strong></td>
+                            <td>: <%= data.Nama_Menu %> (<%= data.Jumlah_Porsi %> Porsi)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Total Pembayaran</strong></td>
+                            <td>: <span class="text-success fw-bold">Rp <%= data.Total_Harga.toLocaleString('id-ID') %></span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Status Pembayaran</strong></td>
+                            <td>: <span class="badge bg-success"><%= data.Status_Bayar %></span></td>
+                        </tr>
+                    </table>
+
+                    <div class="alert alert-info text-center mt-4">
+                        <small>Pembayaran lunas terdeteksi. Langkah berikutnya: Sistem akan memicu pembaruan status pada tabel pengiriman.</small>
+                    </div>
+
+                    <div class="d-grid mt-4">
+                        <a href="/" class="btn btn-dark">Kembali ke Dashboard</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

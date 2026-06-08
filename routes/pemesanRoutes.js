@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const menuController =
-require('../controllers/menuController');
+require('../controllers/pemesanController');
 
 router.get('/', menuController.index);
 

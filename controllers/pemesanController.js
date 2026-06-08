@@ -2,15 +2,11 @@ const db = require('../database/db');
 
 exports.index = async (req, res) => {
     try {
-
         const [pemesan] = await db.query(
-            'SELECT * FROM pelanggan ORDER BY id_pelanggan DESC'
+            'SELECT * FROM TABLE_PELANGGAN ORDER BY ID_Pelanggan DESC'
         );
 
-        res.render('pemesan/index', {
-            pemesan
-        });
-
+        res.render('pemesan/index', { pemesan });
     } catch (error) {
         console.log(error);
         res.send('Terjadi kesalahan');
@@ -23,22 +19,16 @@ exports.createForm = async (req, res) => {
 
 exports.store = async (req, res) => {
     try {
-
-        const {
-            nama_pelanggan,
-            telepon,
-            alamat
-        } = req.body;
+        const { nama_pelanggan, telepon, email } = req.body;
 
         await db.query(
-            `INSERT INTO pelanggan
-            (nama_pelanggan, telepon, alamat)
+            `INSERT INTO TABLE_PELANGGAN 
+            (Nama_Pelanggan, NO_Hp, Email) 
             VALUES (?, ?, ?)`,
-            [nama_pelanggan, telepon, alamat]
+            [nama_pelanggan, telepon, email]
         );
 
         res.redirect('/pemesan');
-
     } catch (error) {
         console.log(error);
         res.send('Terjadi kesalahan');
@@ -47,18 +37,14 @@ exports.store = async (req, res) => {
 
 exports.editForm = async (req, res) => {
     try {
-
         const { id } = req.params;
 
         const [pemesan] = await db.query(
-            'SELECT * FROM pelanggan WHERE id_pelanggan = ?',
+            'SELECT * FROM TABLE_PELANGGAN WHERE ID_Pelanggan = ?',
             [id]
         );
 
-        res.render('pemesan/edit', {
-            pemesan: pemesan[0]
-        });
-
+        res.render('pemesan/edit', { pemesan: pemesan[0] });
     } catch (error) {
         console.log(error);
         res.send('Terjadi kesalahan');
@@ -67,27 +53,20 @@ exports.editForm = async (req, res) => {
 
 exports.update = async (req, res) => {
     try {
-
         const { id } = req.params;
-
-        const {
-            nama_pelanggan,
-            telepon,
-            alamat
-        } = req.body;
+        const { nama_pelanggan, telepon, email } = req.body;
 
         await db.query(
-            `UPDATE pelanggan
-            SET
-                nama_pelanggan = ?,
-                telepon = ?,
-                alamat = ?
-            WHERE id_pelanggan = ?`,
-            [nama_pelanggan, telepon, alamat, id]
+            `UPDATE TABLE_PELANGGAN 
+            SET 
+                Nama_Pelanggan = ?, 
+                NO_Hp = ?, 
+                Email = ? 
+            WHERE ID_Pelanggan = ?`,
+            [nama_pelanggan, telepon, email, id]
         );
 
         res.redirect('/pemesan');
-
     } catch (error) {
         console.log(error);
         res.send('Terjadi kesalahan');
@@ -96,16 +75,14 @@ exports.update = async (req, res) => {
 
 exports.destroy = async (req, res) => {
     try {
-
         const { id } = req.params;
 
         await db.query(
-            'DELETE FROM pelanggan WHERE id_pelanggan = ?',
+            'DELETE FROM TABLE_PELANGGAN WHERE ID_Pelanggan = ?',
             [id]
         );
 
         res.redirect('/pemesan');
-
     } catch (error) {
         console.log(error);
         res.send('Terjadi kesalahan');

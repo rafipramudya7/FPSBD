@@ -1,12 +1,6 @@
--- 1. Buat Database (Opsional, silakan sesuaikan namanya)
 CREATE DATABASE IF NOT EXISTS db_restoran;
 USE db_restoran;
 
--- =========================================================
--- MASTER TABLES (Tabel Utama yang tidak punya FK ke tabel lain)
--- =========================================================
-
--- Buat Table Pelanggan
 CREATE TABLE TABLE_PELANGGAN (
     ID_Pelanggan INT AUTO_INCREMENT,
     Nama_Pelanggan VARCHAR(100) NOT NULL,
@@ -15,7 +9,6 @@ CREATE TABLE TABLE_PELANGGAN (
     PRIMARY KEY (ID_Pelanggan)
 ) ENGINE=InnoDB;
 
--- Buat Table Menu
 CREATE TABLE TABLE_MENU (
     ID_Menu INT AUTO_INCREMENT,
     Nama_Menu VARCHAR(100) NOT NULL,
@@ -23,7 +16,6 @@ CREATE TABLE TABLE_MENU (
     PRIMARY KEY (ID_Menu)
 ) ENGINE=InnoDB;
 
--- Buat Table Karyawan
 CREATE TABLE TABLE_KARYAWAN (
     ID_Karyawan INT AUTO_INCREMENT,
     Nama VARCHAR(100) NOT NULL,
@@ -32,12 +24,6 @@ CREATE TABLE TABLE_KARYAWAN (
     PRIMARY KEY (ID_Karyawan)
 ) ENGINE=InnoDB;
 
-
--- =========================================================
--- DEPENDENT TABLES (Tabel yang memiliki Foreign Key)
--- =========================================================
-
--- Buat Table Detail (Bergantung pada TABLE_MENU)
 CREATE TABLE TABLE_DETAIL (
     ID_Detail INT AUTO_INCREMENT,
     ID_Menu INT,
@@ -48,7 +34,6 @@ CREATE TABLE TABLE_DETAIL (
         ON UPDATE CASCADE ON DELETE SET NULL
 ) ENGINE=InnoDB;
 
--- Buat Table Pengiriman (Bergantung pada TABLE_KARYAWAN)
 CREATE TABLE TABLE_PENGIRIMAN (
     ID_Pengiriman INT AUTO_INCREMENT,
     ID_Karyawan INT,
@@ -60,7 +45,6 @@ CREATE TABLE TABLE_PENGIRIMAN (
         ON UPDATE CASCADE ON DELETE SET NULL
 ) ENGINE=InnoDB;
 
--- Buat Table Transaksi (Pusat relasi dari banyak tabel)
 CREATE TABLE TABLE_TRANSAKSI (
     ID_Transaksi INT AUTO_INCREMENT,
     ID_Pelanggan INT,
@@ -68,7 +52,7 @@ CREATE TABLE TABLE_TRANSAKSI (
     ID_Detail INT,
     Tanggal_Pemesanan DATETIME DEFAULT CURRENT_TIMESTAMP,
     Total_Harga INT NOT NULL,
-    ID_Tim INT,       -- Sesuai di diagram, jika nanti ada TABLE_TIM tinggal pasang FK-nya
+    ID_Tim INT,      
     ID_Karyawan INT,
     PRIMARY KEY (ID_Transaksi),
     FOREIGN KEY (ID_Pelanggan) REFERENCES TABLE_PELANGGAN(ID_Pelanggan) ON UPDATE CASCADE ON DELETE SET NULL,
@@ -77,7 +61,6 @@ CREATE TABLE TABLE_TRANSAKSI (
     FOREIGN KEY (ID_Karyawan) REFERENCES TABLE_KARYAWAN(ID_Karyawan) ON UPDATE CASCADE ON DELETE SET NULL
 ) ENGINE=InnoDB;
 
--- Buat Table Pembayaran (Bergantung pada TABLE_TRANSAKSI)
 CREATE TABLE TABLE_PEMBAYARAN (
     ID_Pembayaran INT AUTO_INCREMENT,
     ID_Transaksi INT,

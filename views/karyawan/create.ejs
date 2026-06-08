@@ -1,0 +1,32 @@
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Tambah Karyawan Baru</h2>
+        <a href="/karyawan" class="btn btn-secondary btn-sm">← Kembali</a>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body p-4">
+            <form action="/karyawan/create" method="POST">
+                <div class="mb-3">
+                    <label for="nama_karyawan" class="form-label font-weight-bold">Nama Karyawan</label>
+                    <input type="text" id="nama_karyawan" name="nama_karyawan" class="form-control" placeholder="Masukkan nama lengkap" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="jabatan" class="form-label font-weight-bold">Jabatan / Posisi</label>
+                    <input type="text" id="jabatan" name="jabatan" class="form-control" placeholder="Contoh: Kurir, Koki, Kasir">
+                </div>
+
+                <div class="mb-3">
+                    <label for="telepon" class="form-label font-weight-bold">No. HP / Telepon</label>
+                    <input type="text" id="telepon" name="telepon" class="form-control" placeholder="Contoh: 08123456789">
+                </div>
+
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                    <button type="reset" class="btn btn-light me-md-2">Reset</button>
+                    <button type="submit" class="btn btn-success">Simpan Karyawan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

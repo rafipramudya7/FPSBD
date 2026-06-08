@@ -1,0 +1,38 @@
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2>Data Pelanggan</h2>
+    <a href="/pemesan/create" class="btn btn-primary">+ Tambah Pelanggan</a>
+</div>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th style="width: 8%">No</th>
+            <th>Nama Pelanggan</th>
+            <th>No. HP</th>
+            <th>Email</th>
+            <th style="width: 20%" class="text-center">Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% pemesan.forEach(function(p, i) { %>
+        <tr>
+            <td><%= i + 1 %></td>
+            <td class="fw-semibold"><%= p.Nama_Pelanggan %></td>
+            <td><%= p.NO_Hp || '-' %></td>
+            <td><%= p.Email || '-' %></td>
+            <td class="text-center">
+                <a href="/pemesan/edit/<%= p.ID_Pelanggan %>" class="btn btn-warning btn-sm me-1">Edit</a>
+                <a href="/pemesan/delete/<%= p.ID_Pelanggan %>" 
+                   class="btn btn-danger btn-sm" 
+                   onclick="return confirm('Apakah Anda yakin ingin menghapus pelanggan bernama <%= p.Nama_Pelanggan %>?')">Hapus</a>
+            </td>
+        </tr>
+        <% }) %>
+
+        <% if (pemesan.length === 0) { %>
+        <tr>
+            <td colspan="5" class="text-center text-muted">Belum ada data pelanggan</td>
+        </tr>
+        <% } %>
+    </tbody>
+</table>
