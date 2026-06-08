@@ -18,7 +18,6 @@ const menuRoutes = require('./routes/menuRoutes');
 app.use('/pemesan', pemesanRoutes);
 app.use('/karyawan', karyawanRoutes);
 app.use('/menu', menuRoutes);
-
 app.get('/', (req, res) => {
     res.send('FPSBD Catering Management');
 });
