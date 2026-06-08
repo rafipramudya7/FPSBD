@@ -131,67 +131,212 @@ main
 
 Branch -> Commit -> Push -> Pull Request -> Merge ke main
 ```
-# FPSBD - Catering Management System
 
-Aplikasi manajemen catering berbasis web menggunakan Node.js, Express, dan MySQL.
+# 🍱 FPSBD Catering Management System
 
-## Cara Setup
+Sistem manajemen catering berbasis **Node.js + Express + MySQL + EJS**.
 
-### 1. Clone / Download project ini
+---
 
-### 2. Install dependencies
+## 📋 Prasyarat
+
+Pastikan sudah terinstall di komputermu:
+
+| Tools | Versi minimal | Cek versi |
+|-------|--------------|-----------|
+| Node.js | v18+ | `node -v` |
+| npm | v8+ | `npm -v` |
+| MySQL | v8+ | `mysql --version` |
+| Git | any | `git --version` |
+
+---
+
+## 🚀 Cara Clone & Menjalankan
+
+### 1. Clone Repository
+
+```bash
+git clone https://github.com/USERNAME/fpsbd-catering-management.git
+cd fpsbd-catering-management
+```
+
+### 2. Install Dependencies
+
 ```bash
 npm install
 ```
 
-### 3. Setup database
-Buka MySQL, lalu jalankan:
-```bash
-mysql -u root -p < database/schema.sql
-```
-Atau buka file `database/schema.sql` di phpMyAdmin dan jalankan.
+### 3. Setup Database
 
-### 4. Buat file `.env`
-Copy dari contoh:
+Buka terminal MySQL atau gunakan phpMyAdmin, lalu jalankan file SQL berikut:
+
+**Via terminal MySQL:**
 ```bash
+mysql -u root -p < database/init.sql
+```
+
+**Via phpMyAdmin:**
+1. Buka `http://localhost/phpmyadmin`
+2. Klik **Import** → pilih file `database/init.sql`
+3. Klik **Go / Execute**
+
+> ✅ Ini akan otomatis membuat database `db_restoran` beserta semua tabelnya.
+
+### 4. Buat File `.env`
+
+Copy file contoh `.env.example` dan rename menjadi `.env`:
+
+```bash
+# Linux / Mac
 cp .env.example .env
+
+# Windows (Command Prompt)
+copy .env.example .env
 ```
-Lalu isi sesuai konfigurasi MySQL kamu:
-```
+
+Lalu buka file `.env` dan sesuaikan isinya:
+
+```env
 DB_HOST=localhost
 DB_USER=root
-DB_PASSWORD=password_mysql_kamu
-DB_NAME=catering_db
+DB_PASSWORD=isi_password_mysql_kamu_disini
+DB_NAME=db_restoran
 ```
 
-### 5. Jalankan aplikasi
+> ⚠️ Jika MySQL kamu tidak punya password, biarkan `DB_PASSWORD=` kosong saja.
+
+### 5. Jalankan Server
+
 ```bash
+# Mode development (auto-restart saat ada perubahan)
+npm run dev
+
 # Mode production
 npm start
-
-# Mode development (auto-restart)
-npm run dev
 ```
 
-Buka browser ke: **http://localhost:3000**
+Buka browser dan akses:
 
-## Struktur Project
 ```
-├── app.js                  # Entry point
+http://localhost:3000
+```
+
+---
+
+## 🧪 Testing Database
+
+Setelah database berhasil diimport, kamu bisa memverifikasi dengan menjalankan script test berikut.
+
+### Cara menjalankan test:
+
+```bash
+node database/test.js
+```
+
+### Apa yang ditest:
+
+| No | Test | Keterangan |
+|----|------|-----------|
+| 1 | Koneksi database | Memastikan koneksi ke MySQL berhasil |
+| 2 | Tabel exists | Cek semua 6 tabel sudah terbuat |
+| 3 | INSERT data | Coba insert data dummy ke setiap tabel |
+| 4 | SELECT data | Coba baca data yang baru diinsert |
+| 5 | DELETE data | Hapus data dummy setelah test |
+
+> Jika semua test menampilkan ✅, berarti database siap digunakan.
+
+---
+
+## 📁 Struktur Folder
+
+```
+fpsbd-catering-management/
+│
+├── controllers/
+│   ├── karyawanController.js
+│   ├── menuController.js
+│   └── pemesanController.js
+│
 ├── database/
-│   ├── db.js               # Koneksi MySQL
-│   └── schema.sql          # Setup database (jalankan sekali)
-├── controllers/            # Logic bisnis
-├── routes/                 # Routing URL
-├── views/                  # Template EJS
-├── public/                 # Static files (CSS, JS, gambar)
-├── .env.example            # Contoh konfigurasi environment
-└── package.json            # Daftar dependency
+│   ├── db.js               ← Konfigurasi koneksi MySQL
+│   ├── init.sql            ← Script SQL untuk buat semua tabel
+│   └── test.js             ← Script untuk test database
+│
+├── routes/
+│   ├── karyawanRoutes.js
+│   ├── menuRoutes.js
+│   └── pemesanRoutes.js
+│
+├── views/
+│   ├── karyawan/
+│   ├── menu/
+│   └── pemesan/
+│
+├── public/                 ← File CSS, JS, gambar statis
+│
+├── app.js                  ← Entry point aplikasi
+├── .env                    ← Konfigurasi environment (JANGAN di-commit!)
+├── .env.example            ← Template .env untuk teman-teman
+├── .gitignore
+├── package.json
+└── README.md
 ```
 
-## Tech Stack
-- **Runtime**: Node.js
-- **Framework**: Express.js
-- **Database**: MySQL (mysql2)
-- **Template Engine**: EJS
-- **ORM**: Raw SQL dengan mysql2/promise
+---
+
+## 🛣️ Daftar Routes
+
+### Karyawan — `/karyawan`
+
+| Method | Route | Fungsi |
+|--------|-------|--------|
+| GET | `/karyawan` | Lihat semua karyawan |
+| GET | `/karyawan/create` | Form tambah karyawan |
+| POST | `/karyawan/create` | Simpan karyawan baru |
+| GET | `/karyawan/edit/:id` | Form edit karyawan |
+| POST | `/karyawan/edit/:id` | Update data karyawan |
+| GET | `/karyawan/delete/:id` | Hapus karyawan |
+
+### Menu — `/menu`
+
+| Method | Route | Fungsi |
+|--------|-------|--------|
+| GET | `/menu` | Lihat semua menu |
+| GET | `/menu/create` | Form tambah menu |
+| POST | `/menu/create` | Simpan menu baru |
+| GET | `/menu/edit/:id` | Form edit menu |
+| POST | `/menu/edit/:id` | Update data menu |
+| GET | `/menu/delete/:id` | Hapus menu |
+
+### Pemesan — `/pemesan`
+
+| Method | Route | Fungsi |
+|--------|-------|--------|
+| GET | `/pemesan` | Lihat semua pemesan |
+| GET | `/pemesan/create` | Form tambah pemesan |
+| POST | `/pemesan/create` | Simpan pemesan baru |
+| GET | `/pemesan/edit/:id` | Form edit pemesan |
+| POST | `/pemesan/edit/:id` | Update data pemesan |
+| GET | `/pemesan/delete/:id` | Hapus pemesan |
+
+---
+
+## ❓ Troubleshooting
+
+**Error: `ER_ACCESS_DENIED_ERROR`**
+→ Password MySQL di file `.env` salah. Cek kembali `DB_PASSWORD`.
+
+**Error: `ECONNREFUSED`**
+→ MySQL belum berjalan. Nyalakan dulu XAMPP / WAMP / MySQL service.
+
+**Error: `ER_BAD_DB_ERROR: Unknown database`**
+→ Database belum dibuat. Ulangi langkah **Setup Database** (no. 3).
+
+**Port 3000 sudah dipakai**
+→ Ubah `const PORT = 3000` di `app.js` menjadi port lain, misal `3001`.
+
+---
+
+## 👥 Tim
+
+> Final Project Sistem Basis Data — Catering Management System

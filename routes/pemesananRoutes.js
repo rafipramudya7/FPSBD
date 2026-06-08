@@ -11,7 +11,6 @@ router.post('/create', menuController.store);
 
 router.get('/edit/:id', menuController.editForm);
 router.post('/edit/:id', menuController.update);
-
 router.get('/delete/:id', menuController.destroy);
 
 module.exports = router;

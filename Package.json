@@ -3,10 +3,11 @@
   "version": "1.0.0",
   "description": "Catering Management System - Final Project SBD",
   "main": "app.js",
-  "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js"
-  },
+"scripts": {
+  "start": "node app.js",
+  "dev": "nodemon app.js",
+  "db:init": "mysql -u root -p db_restoran < database/init.sql"
+},
   "dependencies": {
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
