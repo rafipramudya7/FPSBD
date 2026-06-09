@@ -18,7 +18,7 @@ exports.createForm = async (req, res) => {
 
 exports.store = async (req, res) => {
     try {
-        const { id_pelanggan, id_karyawan, id_menu, jumlah_porsi, alamat_tujuan } = req.body;
+        const { id_pelanggan, id_karyawan, id_menu, jumlah_porsi, alamat_tujuan, metode_pembayaran} = req.body;
 
         const menuArray = Array.isArray(id_menu) ? id_menu : [id_menu];
         const porsiArray = Array.isArray(jumlah_porsi) ? jumlah_porsi : [jumlah_porsi];
@@ -65,7 +65,7 @@ exports.store = async (req, res) => {
 
         await db.query(
             `INSERT INTO TABLE_PEMBAYARAN (ID_Transaksi, Metode_Pembayaran, Status) VALUES (?, ?, ?)`,
-            [idTransaksi, 'Belum Memilih', 'Belum Bayar']
+            [idTransaksi, metode_pembayaran || 'Belum Memilih', 'Belum Bayar']
         );
 
         res.redirect(`/pesanan/invoice/${idTransaksi}`);
@@ -104,11 +104,17 @@ exports.processPayment = async (req, res) => {
     try {
         const { id_transaksi } = req.params;
 
+        const { metode_pembayaran} = req.body;
+
+        if(!metode_pembayaran){
+            return res.status(400).send('Silahkan pilih metode pembayaran.')
+        }
+
         await db.query(
             `UPDATE TABLE_PEMBAYARAN 
              SET Metode_Pembayaran = 'QRIS (Gateway)', Status = 'Lunas' 
              WHERE ID_Transaksi = ?`,
-            [id_transaksi]
+            [metode_pembayaran, id_transaksi]
         );
 
         const [transaksi] = await db.query(
