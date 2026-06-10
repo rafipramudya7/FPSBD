@@ -13,7 +13,7 @@ exports.index = async (req, res) => {
 
     } catch (error) {
         console.log(error);
-        res.send('Terjadi kesalahan');
+        res.send('Terjadi kesalahan brooo');
     }
 };
 
