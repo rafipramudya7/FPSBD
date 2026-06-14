@@ -1,36 +1,320 @@
-<div class="d-flex justify-content-between align-items-center mb-3">
-    <h2>Data Menu Makanan</h2>
-    <div>
-        <a href="/" class="btn btn-secondary me-2">← Kembali</a>
-        <a href="/karyawan/create" class="btn btn-primary">+ Tambah Menu</a>
+<div class="culinary-dashboard-container">
+    
+    <div class="culinary-header">
+        <h2>Data Menu Makanan</h2>
+        <div class="header-actions">
+            <a href="/" class="btn-back">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Kembali
+            </a>
+            <a href="/menu/create" class="btn-primary">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+                Tambah Menu
+            </a>
+        </div>
     </div>
+
+    <div class="culinary-card">
+        <div class="card-accent-line"></div>
+        <div class="table-responsive">
+            <table class="culinary-table">
+                <thead>
+                    <tr>
+                        <th width="80" class="text-center">No</th>
+                        <th>Nama Menu</th>
+                        <th>Harga</th>
+                        <th width="180" class="text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% menu.forEach(function(m, i) { %>
+                    <tr>
+                        <td class="text-center row-number"><%= i + 1 %></td>
+                        <td class="row-menu-name"><%= m.Nama_Menu %></td>
+                        <td>
+                            <span class="price-tag">
+                                Rp <%= m.Harga.toLocaleString('id-ID') %>
+                            </span>
+                        </td>
+                        <td class="text-center">
+                            <div class="action-cell-buttons">
+                                <a href="/menu/edit/<%= m.ID_Menu %>" class="btn-action btn-edit">
+                                    Edit
+                                </a>
+                                <a href="/menu/delete/<%= m.ID_Menu %>" class="btn-action btn-delete" onclick="return confirm('Yakin ingin menghapus menu ini?')">
+                                    Hapus
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    <% }) %>
+                    
+                    <% if (menu.length === 0) { %>
+                    <tr>
+                        <td colspan="4" class="empty-state">
+                            <div class="empty-state-content">
+                                <p>Belum ada data menu kuliner yang tersimpan.</p>
+                            </div>
+                        </td>
+                    </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </div>
 
-<table class="table table-bordered table-hover">
-    <thead class="table-dark">
-        <tr>
-            <th>No</th>
-            <th>Nama Menu</th>
-            <th>Harga</th>
-            <th>Aksi</th>
-        </tr>
-    </thead>
-    <tbody>
-        <% menu.forEach(function(m, i) { %>
-        <tr>
-            <td><%= i + 1 %></td>
-            <td><%= m.Nama_Menu %></td>
-            <td>Rp <%= m.Harga.toLocaleString('id-ID') %></td>
-            <td>
-                <a href="/menu/edit/<%= m.ID_Menu %>" class="btn btn-warning btn-sm">Edit</a>
-                <a href="/menu/delete/<%= m.ID_Menu %>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus menu ini?')">Hapus</a>
-            </td>
-        </tr>
-        <% }) %>
-        <% if (menu.length === 0) { %>
-        <tr>
-            <td colspan="4" class="text-center text-muted">Belum ada data menu</td>
-        </tr>
-        <% } %>
-    </tbody>
-</table>
+<style>
+    /* ─── IMPORT FONT PREMIUM (INTER & PLAYFAIR DISPLAY) ─── */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap');
+
+    /* ─── CONTAINER UTAMA ─── */
+    .culinary-dashboard-container {
+        width: 100%;
+        max-width: 800px; /* Lebar disesuaikan agar tabel terasa lega */
+        margin: 40px auto;
+        padding: 0 24px;
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        box-sizing: border-box;
+    }
+
+    /* ─── HEADER (FONT SERIF MAHAL) ─── */
+    .culinary-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 24px;
+        gap: 16px;
+    }
+
+    .culinary-header h2 {
+        color: #0b2219;
+        margin: 0;
+        font-family: 'Playfair Display', serif;
+        font-weight: 700;
+        font-size: 28px;
+        letter-spacing: -0.2px;
+    }
+
+    .header-actions {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+    }
+
+    /* ─── TOMBOL-TOMBOL NAVIGASI ATAS ─── */
+    .btn-back {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        text-decoration: none;
+        color: #5c6f66;
+        font-weight: 500;
+        padding: 10px 16px;
+        background-color: transparent;
+        border: 1px solid #e3e7e4;
+        border-radius: 10px;
+        font-size: 13.5px;
+        transition: all 0.15s ease;
+    }
+
+    .btn-back:hover {
+        background-color: #ffffff;
+        color: #111827;
+        border-color: #111827;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    .btn-primary {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        text-decoration: none;
+        background-color: #1e5236; /* Hijau Botol Premium */
+        color: #ffffff;
+        border: 1px solid #143825;
+        padding: 10px 18px;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 13.5px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        transition: all 0.15s ease;
+    }
+
+    .btn-primary:hover {
+        background-color: #143825;
+        box-shadow: 0 4px 12px rgba(30, 82, 54, 0.15);
+    }
+
+    /* ─── CARD WRAPPER TABEL ─── */
+    .culinary-card {
+        background: #ffffff; 
+        border-radius: 20px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 
+            0 1px 3px rgba(0,0,0,0.02),
+            0 10px 40px -10px rgba(15, 52, 39, 0.06); 
+        border: 1px solid #eef1ef;
+    }
+
+    .card-accent-line {
+        height: 4px;
+        background: #1e5236;
+        width: 100%;
+    }
+
+    .table-responsive {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    /* ─── STRUKTUR KUSTOM TABEL MODEREN ─── */
+    .culinary-table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        font-size: 14.5px;
+    }
+
+    /* Header Tabel */
+    .culinary-table th {
+        background-color: #fcfdfe;
+        color: #4b5563;
+        font-weight: 600;
+        padding: 16px 24px;
+        font-size: 13px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border-bottom: 1px solid #eef1ef;
+        user-select: none;
+    }
+
+    /* Isi Baris Tabel */
+    .culinary-table td {
+        padding: 16px 24px;
+        border-bottom: 1px solid #f4f6f4;
+        color: #111827;
+        vertical-align: middle;
+    }
+
+    /* Efek Hover Baris */
+    .culinary-table tbody tr {
+        transition: background-color 0.15s ease;
+    }
+    
+    .culinary-table tbody tr:hover {
+        background-color: #fafdfa; /* Sorotan hijau super tipis saat hover */
+    }
+
+    /* Styling Teks Khusus */
+    .row-number {
+        color: #9ca3af;
+        font-weight: 500;
+    }
+
+    .row-menu-name {
+        font-weight: 500;
+        color: #0b2219;
+    }
+
+    /* Badge Harga Estetik */
+    .price-tag {
+        display: inline-block;
+        background-color: #edf2ee;
+        color: #1e5236;
+        font-weight: 600;
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-size: 13.5px;
+    }
+
+    /* ─── TOMBOL AKSI (EDIT & HAPUS MINIMALIS) ─── */
+    .action-cell-buttons {
+        display: flex;
+        gap: 8px;
+        justify-content: center;
+    }
+
+    .btn-action {
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 600;
+        padding: 6px 14px;
+        border-radius: 8px;
+        transition: all 0.15s ease;
+    }
+
+    /* Tombol Edit */
+    .btn-edit {
+        background-color: transparent;
+        color: #b45309; /* Warna amber hangat matang */
+        border: 1px solid #fde68a;
+    }
+
+    .btn-edit:hover {
+        background-color: #fffbeb;
+        color: #78350f;
+        border-color: #b45309;
+    }
+
+    /* Tombol Hapus */
+    .btn-delete {
+        background-color: transparent;
+        color: #dc2626; /* Merah bersih */
+        border: 1px solid #fecaca;
+    }
+
+    .btn-delete:hover {
+        background-color: #fef2f2;
+        color: #991b1b;
+        border-color: #dc2626;
+    }
+
+    /* Status Data Kosong */
+    .empty-state {
+        padding: 48px 0 !important;
+    }
+
+    .empty-state-content {
+        text-align: center;
+        color: #9ca3af;
+        font-size: 14.5px;
+    }
+
+    /* Utility Helpers */
+    .text-center { text-align: center; }
+
+    /* ─── RESPONSIVE (MOBILE) ─── */
+    @media (max-width: 600px) {
+        .culinary-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+        .header-actions {
+            width: 100%;
+        }
+        .btn-back, .btn-primary {
+            flex: 1;
+            justify-content: center;
+        }
+        .culinary-table th, .culinary-table td {
+            padding: 12px 16px;
+        }
+        .action-cell-buttons {
+            flex-direction: column;
+            gap: 4px;
+        }
+        .btn-action {
+            width: 100%;
+            display: block;
+            box-sizing: border-box;
+        }
+    }
+</style>

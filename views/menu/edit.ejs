@@ -1,29 +1,332 @@
-<div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>Edit Data Menu Kuliner</h2>
-        <a href="/menu" class="btn btn-secondary btn-sm">← Kembali</a>
-    </div>
+<div class="full-page-bg">
+    <div class="culinary-container">
+        
+        <div class="culinary-header">
+            <h2>Edit Data Menu</h2>
+            <a href="/menu" class="btn-back">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Kembali
+            </a>
+        </div>
 
-    <div class="card shadow-sm">
-        <div class="card-body p-4">
-            <form action="/menu/edit/<%= menu.ID_Menu %>" method="POST">
-                <div class="mb-3">
-                    <label for="nama_menu" class="form-label font-weight-bold">Nama Menu Makanan / Minuman</label>
-                    <input type="text" id="nama_menu" name="nama_menu" value="<%= menu.Nama_Menu %>" class="form-control" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="harga" class="form-label font-weight-bold">Harga Jual (Rp)</label>
-                    <div class="input-group">
-                        <span class="input-group-text">Rp</span>
-                        <input type="number" id="harga" name="harga" value="<%= menu.Harga %>" class="form-control" min="0" required>
+        <div class="culinary-card">
+            <div class="card-accent-line"></div>
+            
+            <form action="/menu/edit/<%= menu.ID_Menu %>" method="POST" class="culinary-form">
+                
+                <div class="form-group">
+                    <label for="nama_menu">Nama Menu Makanan / Minuman</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="nama_menu" name="nama_menu" value="<%= menu.Nama_Menu %>" placeholder="Contoh: Wagyu Steak Saus BBQ" required>
                     </div>
                 </div>
 
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                    <button type="submit" class="btn btn-primary">Update Menu</button>
+                <div class="form-group">
+                    <label for="harga">Harga Jual</label>
+                    <div class="price-input-group">
+                        <span class="currency-addon">Rp</span>
+                        <input type="number" id="harga" name="harga" value="<%= menu.Harga %>" placeholder="0" min="0" required>
+                    </div>
+                </div>
+
+                <div class="form-divider"></div>
+
+                <div class="action-buttons">
+                    <button type="submit" class="btn-submit">Update Menu Kuliner</button>
                 </div>
             </form>
         </div>
+
     </div>
 </div>
+
+<style>
+   /* ─── IMPORT FONT PREMIUM (INTER & PLAYFAIR DISPLAY) ─── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap');
+
+/* ─── CANVAS UTAMA (WARNA MINIMALIS MEWAH) ─── */
+.full-page-bg {
+    background-color: #fafbfa;
+    background-image: 
+        radial-gradient(at 10% 10%, rgba(34, 139, 87, 0.04) 0px, transparent 40%),
+        radial-gradient(at 90% 90%, rgba(15, 52, 39, 0.03) 0px, transparent 40%);
+    background-attachment: fixed;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 24px;
+}
+
+/* ─── CONTAINER LAYOUT ─── */
+.culinary-container {
+    width: 100%;
+    max-width: 540px;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    box-sizing: border-box;
+}
+
+/* ─── HEADER ─── */
+.culinary-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.culinary-header h2 {
+    color: #0b2219;
+    margin: 0;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 28px;
+    letter-spacing: -0.2px;
+}
+
+/* ─── INTERAKSI TOMBOL KEMBALI (HOVER BERGESER) ─── */
+.btn-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    text-decoration: none;
+    color: #5c6f66;
+    font-weight: 500;
+    padding: 8px 14px;
+    background-color: transparent;
+    border: 1px solid #e3e7e4;
+    border-radius: 10px;
+    font-size: 13.5px;
+    /* Menggunakan cubic-bezier agar transisi pergeseran terasa smooth & membal */
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-back svg {
+    transition: transform 0.3s ease;
+}
+
+.btn-back:hover {
+    background-color: #ffffff;
+    color: #111827;
+    border-color: #111827;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transform: translateX(-4px); /* Tombol geser ke kiri sedikit */
+}
+
+.btn-back:hover svg {
+    transform: translateX(-2px); /* Panah di dalam ikut narik ke kiri */
+}
+
+.btn-back:active {
+    transform: translateX(-2px) scale(0.96);
+}
+
+/* ─── CARD MODERN ─── */
+.culinary-card {
+    background: #ffffff; 
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 
+        0 1px 3px rgba(0,0,0,0.02),
+        0 10px 40px -10px rgba(15, 52, 39, 0.06); 
+    border: 1px solid #eef1ef;
+}
+
+.card-accent-line {
+    height: 4px;
+    background: #1e5236;
+    width: 100%;
+}
+
+.culinary-form { 
+    padding: 32px 40px; 
+}
+
+/* ─── FORM INPUTS STYLING + GLOW EFFECT ─── */
+.form-group { 
+    margin-bottom: 22px; 
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #374151;
+    font-weight: 500;
+    font-size: 13.5px;
+    transition: color 0.2s ease;
+}
+
+/* Efek teks label berubah warna jadi hijau saat input di bawahnya aktif */
+.form-group:focus-within label {
+    color: #1e5236;
+}
+
+.form-group input[type="text"] {
+    width: 100%;
+    padding: 12px 16px;
+    background-color: #ffffff;
+    border: 1px solid #dcdfdc;
+    border-radius: 10px;
+    font-size: 14.5px;
+    font-family: inherit;
+    color: #111827;
+    box-sizing: border-box;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.01);
+    /* Transisi border ring shadow */
+    transition: border-color 0.2s ease, box-shadow 0.25s ease-out;
+}
+
+.form-group input[type="text"]:focus {
+    outline: none;
+    border-color: #1e5236;
+    /* Memberikan efek bayangan menyebar (glow ring) */
+    box-shadow: 0 0 0 4px rgba(30, 82, 54, 0.15);
+}
+
+/* ─── PRICE INPUT GROUP ─── */
+.price-input-group { 
+    display: flex; 
+    width: 100%; 
+}
+
+.currency-addon {
+    background: #f4f6f4;
+    color: #4b5563;
+    padding: 12px 16px;
+    font-weight: 600;
+    border: 1px solid #dcdfdc;
+    border-right: none;
+    border-radius: 10px 0 0 10px;
+    font-size: 14.5px;
+    display: flex;
+    align-items: center;
+    user-select: none;
+    transition: all 0.2s ease;
+}
+
+.price-input-group input[type="number"] {
+    flex: 1;
+    padding: 12px 16px;
+    background-color: #ffffff;
+    border: 1px solid #dcdfdc;
+    border-radius: 0 10px 10px 0;
+    font-size: 14.5px;
+    font-family: inherit;
+    color: #111827;
+    box-sizing: border-box;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.01);
+    transition: border-color 0.2s ease, box-shadow 0.25s ease-out;
+}
+
+/* Sinkronisasi grup input harga saat di-focus */
+.price-input-group:focus-within .currency-addon {
+    border-color: #1e5236;
+    background-color: #edf2ee;
+    color: #1e5236;
+}
+
+.price-input-group input[type="number"]:focus {
+    outline: none;
+    border-color: #1e5236;
+    box-shadow: 0 0 0 4px rgba(30, 82, 54, 0.15);
+}
+
+.price-input-group input[type="number"]::-webkit-outer-spin-button,
+.price-input-group input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* ─── DIVIDER ─── */
+.form-divider {
+    height: 1px;
+    background: #eef1ef;
+    margin: 28px 0;
+}
+
+/* ─── BUTTONS ACTION (PREMIUM MICRO-INTERACTIONS) ─── */
+.action-buttons { 
+    display: flex; 
+    justify-content: flex-end; 
+    gap: 12px; 
+}
+
+.btn-reset {
+    background-color: transparent;
+    color: #4b5563;
+    border: 1px solid transparent;
+    padding: 12px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 14px;
+    font-family: inherit;
+    transition: all 0.2s ease;
+}
+
+.btn-reset:hover {
+    background-color: #f3f4f6;
+    color: #1f2937;
+}
+
+.btn-reset:active {
+    transform: scale(0.97);
+}
+
+/* INTERAKSI TOMBOL SUBMIT UTAMA (SWELL & CLICK EFFECT) */
+.btn-submit {
+    background-color: #1e5236;
+    color: #ffffff;
+    border: 1px solid #143825;
+    padding: 12px 24px;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 14px;
+    font-family: inherit;
+    box-shadow: 0 2px 4px rgba(30, 82, 54, 0.1);
+    /* Menggunakan kurva spring bouncy untuk transisi hover */
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                background-color 0.2s ease, 
+                box-shadow 0.3s ease;
+}
+
+.btn-submit:hover {
+    background-color: #143825;
+    transform: translateY(-3px) scale(1.02); /* Tombol membesar dikit & naik ke atas */
+    box-shadow: 0 8px 20px rgba(30, 82, 54, 0.25); /* Bayangan melebar lembut */
+}
+
+.btn-submit:active {
+    transform: translateY(-1px) scale(0.96); /* Tombol membal mendalam ke bawah saat diklik */
+    box-shadow: 0 4px 8px rgba(30, 82, 54, 0.15);
+    transition: transform 0.05s linear; /* Respon instan tanpa delay saat diklik */
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 576px) {
+    .culinary-form { 
+        padding: 24px 20px; 
+    }
+    .action-buttons { 
+        flex-direction: column-reverse; 
+        gap: 8px;
+    }
+    .btn-reset, .btn-submit { 
+        width: 100%; 
+        padding: 14px;
+    }
+    .btn-submit:hover {
+        transform: none; /* Matikan efek melayang di mobile agar tidak mengganggu touch screen */
+        box-shadow: none;
+    }
+    .btn-submit:active {
+        transform: scale(0.97);
+    }
+}
+    
+</style>
