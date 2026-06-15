@@ -1,30 +1,301 @@
-<div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>Tambah Menu Kuliner Baru</h2>
-        <a href="/menu" class="btn btn-secondary btn-sm">← Kembali</a>
-    </div>
+<div class="full-page-bg">
+    <div class="culinary-container">
+        
+        <div class="culinary-header">
+            <h2>Tambah Menu Baru</h2>
+            <a href="/menu" class="btn-back">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path d="M19 12H5M12 19l-7-7 7-7"/>
+                </svg>
+                Kembali
+            </a>
+        </div>
 
-    <div class="card shadow-sm">
-        <div class="card-body p-4">
-            <form action="/menu/create" method="POST">
-                <div class="mb-3">
-                    <label for="nama_menu" class="form-label font-weight-bold">Nama Menu Makanan / Minuman</label>
-                    <input type="text" id="nama_menu" name="nama_menu" class="form-control" placeholder="Masukkan nama menu" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="harga" class="form-label font-weight-bold">Harga Jual (Rp)</label>
-                    <div class="input-group">
-                        <span class="input-group-text">Rp</span>
-                        <input type="number" id="harga" name="harga" class="form-control" placeholder="Contoh: 15000" min="0" required>
+        <div class="culinary-card">
+            <!-- Garis aksen tipis mewah di paling atas card -->
+            <div class="card-accent-line"></div>
+            
+            <form action="/menu/create" method="POST" class="culinary-form">
+                
+                <div class="form-group">
+                    <label for="nama_menu">Nama Menu Makanan / Minuman</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="nama_menu" name="nama_menu" placeholder="Contoh: Wagyu Steak Saus BBQ atau Matcha Latte" required>
                     </div>
                 </div>
 
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                    <button type="reset" class="btn btn-light me-md-2">Reset</button>
-                    <button type="submit" class="btn btn-success">Simpan Menu</button>
+                <div class="form-group">
+                    <label for="harga">Harga Jual</label>
+                    <div class="price-input-group">
+                        <span class="currency-addon">Rp</span>
+                        <input type="number" id="harga" name="harga" placeholder="0" min="0" required>
+                    </div>
+                </div>
+
+                <div class="form-divider"></div>
+
+                <div class="action-buttons">
+                    <button type="reset" class="btn-reset">Reset</button>
+                    <button type="submit" class="btn-submit">Simpan Menu Kuliner</button>
                 </div>
             </form>
         </div>
+
     </div>
 </div>
+
+<style>
+    /* ─── IMPORT FONT PREMIUM (INTER & PLAYFAIR DISPLAY) ─── */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap');
+
+    /* ─── CANVAS UTAMA (WARNA MINIMALIS MEWAH) ─── */
+    .full-page-bg {
+        background-color: #fafbfa;
+        /* Perpaduan gradasi super soft yang menyebar di pojok layar */
+        background-image: 
+            radial-gradient(at 10% 10%, rgba(34, 139, 87, 0.04) 0px, transparent 40%),
+            radial-gradient(at 90% 90%, rgba(15, 52, 39, 0.03) 0px, transparent 40%);
+        background-attachment: fixed;
+        min-height: 100vh;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        padding: 24px;
+    }
+
+    /* ─── CONTAINER LAYOUT ─── */
+    .culinary-container {
+        width: 100%;
+        max-width: 540px; /* Dipersempit agar proporsi card terlihat sangat pas dan rapi */
+        font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        box-sizing: border-box;
+    }
+
+    /* ─── HEADER (FONT MAHAL) ─── */
+    .culinary-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 28px;
+    }
+
+    .culinary-header h2 {
+        color: #0b2219;
+        margin: 0;
+        font-family: 'Playfair Display', serif; /* Menggunakan font serif estetik khas kuliner/resto premium */
+        font-weight: 700;
+        font-size: 28px;
+        letter-spacing: -0.2px;
+    }
+
+    .btn-back {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        text-decoration: none;
+        color: #5c6f66;
+        font-weight: 500;
+        padding: 8px 14px;
+        background-color: transparent;
+        border: 1px solid #e3e7e4;
+        border-radius: 10px;
+        font-size: 13.5px;
+        transition: all 0.2s ease;
+    }
+
+    .btn-back:hover {
+        background-color: #ffffff;
+        color: #111827;
+        border-color: #111827;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    }
+
+    /* ─── CARD MODERN (CLEAN & SHARP SHADOW) ─── */
+    .culinary-card {
+        background: #ffffff; 
+        border-radius: 20px;
+        position: relative;
+        overflow: hidden;
+        /* Efek shadow berlapis tipis yang bikin card terlihat "mengambang" lembut */
+        box-shadow: 
+            0 1px 3px rgba(0,0,0,0.02),
+            0 10px 40px -10px rgba(15, 52, 39, 0.06); 
+        border: 1px solid #eef1ef;
+    }
+
+    .card-accent-line {
+        height: 4px;
+        background: #1e5236;
+        width: 100%;
+    }
+
+    .culinary-form { 
+        padding: 32px 40px; 
+    }
+
+    /* ─── FORM INPUTS (STYLE STRIPE / APPLE) ─── */
+    .form-group { 
+        margin-bottom: 22px; 
+    }
+
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #374151;
+        font-weight: 500;
+        font-size: 13.5px;
+    }
+
+    /* Input text */
+    .form-group input[type="text"] {
+        width: 100%;
+        padding: 12px 16px;
+        background-color: #ffffff;
+        border: 1px solid #dcdfdc;
+        border-radius: 10px;
+        font-size: 14.5px;
+        font-family: inherit;
+        color: #111827;
+        box-sizing: border-box;
+        transition: all 0.15s ease;
+        box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);
+    }
+
+    .form-group input[type="text"]::placeholder,
+    .price-input-group input[type="number"]::placeholder {
+        color: #9ca3af;
+        font-size: 14px;
+    }
+
+    .form-group input[type="text"]:focus {
+        outline: none;
+        border-color: #1e5236;
+        box-shadow: 0 0 0 3px rgba(30, 82, 54, 0.12);
+    }
+
+    /* ─── PRICE INPUT GROUP ─── */
+    .price-input-group { 
+        display: flex; 
+        width: 100%; 
+    }
+
+    .currency-addon {
+        background: #f4f6f4;
+        color: #4b5563;
+        padding: 12px 16px;
+        font-weight: 600;
+        border: 1px solid #dcdfdc;
+        border-right: none;
+        border-radius: 10px 0 0 10px;
+        font-size: 14.5px;
+        display: flex;
+        align-items: center;
+        user-select: none;
+    }
+
+    .price-input-group input[type="number"] {
+        flex: 1;
+        padding: 12px 16px;
+        background-color: #ffffff;
+        border: 1px solid #dcdfdc;
+        border-radius: 0 10px 10px 0;
+        font-size: 14.5px;
+        font-family: inherit;
+        color: #111827;
+        box-sizing: border-box;
+        transition: all 0.15s ease;
+        box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);
+    }
+
+    /* Sinergi warna border saat fokus */
+    .price-input-group:focus-within .currency-addon {
+        border-color: #1e5236;
+        background-color: #edf2ee;
+        color: #1e5236;
+    }
+
+    .price-input-group input[type="number"]:focus {
+        outline: none;
+        border-color: #1e5236;
+        box-shadow: 0 0 0 3px rgba(30, 82, 54, 0.12);
+    }
+
+    /* Hilangkan panah spinner bawaan browser pada input type="number" */
+    .price-input-group input[type="number"]::-webkit-outer-spin-button,
+    .price-input-group input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    /* ─── DIVIDER ─── */
+    .form-divider {
+        height: 1px;
+        background: #eef1ef;
+        margin: 28px 0;
+    }
+
+    /* ─── BUTTONS ACTION (PREMIUM INTERACTION) ─── */
+    .action-buttons { 
+        display: flex; 
+        justify-content: flex-end; 
+        gap: 12px; 
+    }
+
+    .btn-reset {
+        background-color: transparent;
+        color: #4b5563;
+        border: 1px solid transparent;
+        padding: 12px 20px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: 500;
+        font-size: 14px;
+        font-family: inherit;
+        transition: all 0.15s ease;
+    }
+
+    .btn-reset:hover {
+        background-color: #f3f4f6;
+        color: #1f2937;
+    }
+
+    .btn-submit {
+        background-color: #1e5236; /* Hijau Botol tua yang sangat elegan */
+        color: #ffffff;
+        border: 1px solid #143825;
+        padding: 12px 24px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 14px;
+        font-family: inherit;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        transition: all 0.15s ease;
+    }
+
+    .btn-submit:hover {
+        background-color: #143825;
+        box-shadow: 0 4px 12px rgba(30, 82, 54, 0.15);
+    }
+
+    .btn-submit:active {
+        transform: scale(0.98); /* Efek membal saat ditekan */
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 576px) {
+        .culinary-form { 
+            padding: 24px 20px; 
+        }
+        .action-buttons { 
+            flex-direction: column-reverse; 
+            gap: 8px;
+        }
+        .btn-reset, .btn-submit { 
+            width: 100%; 
+            padding: 14px;
+        }
+    }
+</style>
