@@ -1,31 +1,114 @@
-<div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>Edit Data Karyawan</h2>
-        <a href="/karyawan" class="btn btn-secondary btn-sm">← Kembali</a>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Karyawan - FPSBD Catering</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        body { background-color: #f8f9fa; }
+        .form-card { border: none; border-radius: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
+        .page-header { background: white; border-radius: 12px; border: 1px solid #e9ecef; padding: 28px 32px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
+        .icon-header { width: 48px; height: 48px; background: #f59f00; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; margin-right: 14px; }
+        
+        /* Custom form styling agar senada */
+        .form-label { font-size: 14px; font-weight: 600; color: #495057; margin-bottom: 8px; }
+        .form-control { border-radius: 8px; padding: 10px 14px; font-size: 14px; border-color: #dee2e6; }
+        .form-control:focus { border-color: #4263eb; box-shadow: 0 0 0 0.25rem rgba(66, 99, 235, 0.15); }
+        .input-group-text { background-color: #f1f3f5; border-color: #dee2e6; border-radius: 8px 0 0 8px; color: #495057; }
+        .input-group .form-control { border-radius: 0 8px 8px 0; }
+        
+        /* Button styling styling */
+        .btn-custom { border-radius: 8px; font-size: 14px; font-weight: 500; padding: 10px 20px; transition: all 0.2s; }
+        .btn-update { background-color: #4263eb; color: #fff; border: none; }
+        .btn-update:hover { background-color: #3b5bdb; color: #fff; }
+        .btn-batal { background-color: #f1f3f5; color: #495057; border: none; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; }
+        .btn-batal:hover { background-color: #e9ecef; color: #212529; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark shadow-sm mb-4">
+    <div class="container">
+        <span class="navbar-brand mb-0 h1">
+            <i class="bi bi-egg-fried me-2 text-warning"></i> FPSBD Catering Management
+        </span>
+    </div>
+</nav>
+
+<div class="container pb-5">
+
+    <!-- HEADER PAGE -->
+    <div class="page-header d-flex align-items-center justify-content-between flex-wrap gap-3">
+        <div class="d-flex align-items-center">
+            <div class="icon-header"> <!-- Warna Amber khusus untuk modul "Edit/Ubah Data" -->
+                <i class="bi bi-pencil-square text-white fs-4"></i>
+            </div>
+            <div>
+                <h2 style="font-size:22px; font-weight:700; margin:0;">Edit Data Karyawan</h2>
+                <p style="color:#6c757d; margin:4px 0 0; font-size:14px;">Perbarui informasi detail data karyawan atau penanggung jawab</p>
+            </div>
+        </div>
+        <div>
+            <a href="/karyawan" class="btn btn-outline-secondary d-flex align-items-center gap-1" style="border-radius:8px; font-size:14px;">
+                <i class="bi bi-arrow-left"></i> Kembali ke Data Karyawan
+            </a>
+        </div>
     </div>
 
-    <div class="card shadow-sm">
-        <div class="card-body p-4">
+    <!-- FORM CARD -->
+    <div class="card form-card">
+        <div class="card-body p-4 p-md-5">
             <form action="/karyawan/edit/<%= karyawan.ID_Karyawan %>" method="POST">
-                <div class="mb-3">
-                    <label for="nama_karyawan" class="form-label font-weight-bold">Nama Karyawan</label>
-                    <input type="text" id="nama_karyawan" name="nama_karyawan" value="<%= karyawan.Nama %>" class="form-control" required>
+                
+                <!-- Input Nama -->
+                <div class="mb-4">
+                    <label for="nama_karyawan" class="form-label">Nama Lengkap Karyawan <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-person"></i></span>
+                        <input type="text" id="nama_karyawan" name="nama_karyawan" value="<%= karyawan.Nama %>" class="form-control" required>
+                    </div>
                 </div>
 
-                <div class="mb-3">
-                    <label for="jabatan" class="form-label font-weight-bold">Jabatan / Posisi</label>
-                    <input type="text" id="jabatan" name="jabatan" value="<%= karyawan.Jabatan %>" class="form-control">
+                <div class="row">
+                    <!-- Input Jabatan -->
+                    <div class="col-md-6 mb-4">
+                        <label for="jabatan" class="form-label">Jabatan / Posisi</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-briefcase"></i></span>
+                            <input type="text" id="jabatan" name="jabatan" value="<%= karyawan.Jabatan %>" class="form-control">
+                        </div>
+                    </div>
+
+                    <!-- Input Telepon -->
+                    <div class="col-md-6 mb-4">
+                        <label for="telepon" class="form-label">No. HP / Telepon</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                            <input type="text" id="telepon" name="telepon" value="<%= karyawan.NO_Hp %>" class="form-control">
+                        </div>
+                    </div>
                 </div>
 
-                <div class="mb-3">
-                    <label for="telepon" class="form-label font-weight-bold">No. HP / Telepon</label>
-                    <input type="text" id="telepon" name="telepon" value="<%= karyawan.NO_Hp %>" class="form-control">
+                <hr class="text-muted opacity-25 my-4">
+
+                <!-- Action Buttons -->
+                <div class="d-flex justify-content-end gap-2">
+                    <a href="/karyawan" class="btn btn-custom btn-batal">
+                        Batal
+                    </a>
+                    <button type="submit" class="btn btn-custom btn-update">
+                        <i class="bi bi-check-circle me-1"></i> Update Data
+                    </button>
                 </div>
 
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                    <button type="submit" class="btn btn-primary">Update Data</button>
-                </div>
             </form>
         </div>
     </div>
+
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
