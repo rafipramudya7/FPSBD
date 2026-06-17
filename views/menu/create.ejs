@@ -1,301 +1,96 @@
-<div class="full-page-bg">
-    <div class="culinary-container">
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Menu - FPSBD Catering</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        body { background-color: #f8f9fa; }
+        .form-card { border: none; border-radius: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
+        .page-header { background: white; border-radius: 12px; border: 1px solid #e9ecef; padding: 28px 32px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
+        .icon-header { width: 48px; height: 48px; background: #198754; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; margin-right: 14px; }
         
-        <div class="culinary-header">
-            <h2>Tambah Menu Baru</h2>
-            <a href="/menu" class="btn-back">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <path d="M19 12H5M12 19l-7-7 7-7"/>
-                </svg>
-                Kembali
+        .form-label { font-size: 14px; font-weight: 600; color: #495057; margin-bottom: 8px; }
+        .form-control { border-radius: 8px; padding: 10px 14px; font-size: 14px; border-color: #dee2e6; }
+        .form-control:focus { border-color: #198754; box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.15); }
+        .input-group-text { background-color: #f1f3f5; border-color: #dee2e6; border-radius: 8px 0 0 8px; color: #495057; font-weight: 600; }
+        .input-group .form-control { border-radius: 0 8px 8px 0; }
+        
+        .btn-custom { border-radius: 8px; font-size: 14px; font-weight: 500; padding: 10px 20px; transition: all 0.2s; }
+        .btn-simpan { background-color: #198754; color: #fff; border: none; }
+        .btn-simpan:hover { background-color: #157347; color: #fff; }
+        .btn-reset { background-color: #f1f3f5; color: #495057; border: none; }
+        .btn-reset:hover { background-color: #e9ecef; color: #212529; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark shadow-sm mb-4">
+    <div class="container">
+        <span class="navbar-brand mb-0 h1">
+            <i class="bi bi-egg-fried me-2 text-warning"></i> FPSBD Catering Management
+        </span>
+    </div>
+</nav>
+
+<div class="container pb-5">
+
+    <div class="page-header d-flex align-items-center justify-content-between flex-wrap gap-3">
+        <div class="d-flex align-items-center">
+            <div class="icon-header bg-success bg-gradient">
+                <i class="bi bi-plus-circle-fill text-white fs-4"></i>
+            </div>
+            <div>
+                <h2 style="font-size:22px; font-weight:700; margin:0;">Tambah Menu Baru</h2>
+                <p style="color:#6c757d; margin:4px 0 0; font-size:14px;">Masukkan hidangan kuliner baru ke dalam daftar sistem</p>
+            </div>
+        </div>
+        <div>
+            <a href="/menu" class="btn btn-outline-secondary d-flex align-items-center gap-1" style="border-radius:8px; font-size:14px;">
+                <i class="bi bi-arrow-left"></i> Kembali ke Data Menu
             </a>
         </div>
+    </div>
 
-        <div class="culinary-card">
-            <!-- Garis aksen tipis mewah di paling atas card -->
-            <div class="card-accent-line"></div>
-            
-            <form action="/menu/create" method="POST" class="culinary-form">
+    <div class="card form-card">
+        <div class="card-body p-4 p-md-5">
+            <form action="/menu/create" method="POST">
                 
-                <div class="form-group">
-                    <label for="nama_menu">Nama Menu Makanan / Minuman</label>
-                    <div class="input-wrapper">
-                        <input type="text" id="nama_menu" name="nama_menu" placeholder="Contoh: Wagyu Steak Saus BBQ atau Matcha Latte" required>
+                <div class="mb-4">
+                    <label for="nama_menu" class="form-label">Nama Menu Makanan / Minuman <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-egg-fried"></i></span>
+                        <input type="text" id="nama_menu" name="nama_menu" class="form-control" placeholder="Contoh: Wagyu Steak Saus BBQ atau Matcha Latte" required>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="harga">Harga Jual</label>
-                    <div class="price-input-group">
-                        <span class="currency-addon">Rp</span>
-                        <input type="number" id="harga" name="harga" placeholder="0" min="0" required>
+                <div class="mb-4">
+                    <label for="harga" class="form-label">Harga Jual <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <span class="input-group-text">Rp</span>
+                        <input type="number" id="harga" name="harga" class="form-control" placeholder="0" min="0" required>
                     </div>
                 </div>
 
-                <div class="form-divider"></div>
+                <hr class="text-muted opacity-25 my-4">
 
-                <div class="action-buttons">
-                    <button type="reset" class="btn-reset">Reset</button>
-                    <button type="submit" class="btn-submit">Simpan Menu Kuliner</button>
+                <div class="d-flex justify-content-end gap-2">
+                    <button type="reset" class="btn btn-custom btn-reset">
+                        <i class="bi bi-arrow-counterclockwise me-1"></i> Reset
+                    </button>
+                    <button type="submit" class="btn btn-custom btn-simpan">
+                        <i class="bi bi-check-circle me-1"></i> Simpan Menu Kuliner
+                    </button>
                 </div>
+
             </form>
         </div>
-
     </div>
+
 </div>
 
-<style>
-    /* ─── IMPORT FONT PREMIUM (INTER & PLAYFAIR DISPLAY) ─── */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap');
-
-    /* ─── CANVAS UTAMA (WARNA MINIMALIS MEWAH) ─── */
-    .full-page-bg {
-        background-color: #fafbfa;
-        /* Perpaduan gradasi super soft yang menyebar di pojok layar */
-        background-image: 
-            radial-gradient(at 10% 10%, rgba(34, 139, 87, 0.04) 0px, transparent 40%),
-            radial-gradient(at 90% 90%, rgba(15, 52, 39, 0.03) 0px, transparent 40%);
-        background-attachment: fixed;
-        min-height: 100vh;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-sizing: border-box;
-        padding: 24px;
-    }
-
-    /* ─── CONTAINER LAYOUT ─── */
-    .culinary-container {
-        width: 100%;
-        max-width: 540px; /* Dipersempit agar proporsi card terlihat sangat pas dan rapi */
-        font-family: 'Inter', system-ui, -apple-system, sans-serif;
-        box-sizing: border-box;
-    }
-
-    /* ─── HEADER (FONT MAHAL) ─── */
-    .culinary-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 28px;
-    }
-
-    .culinary-header h2 {
-        color: #0b2219;
-        margin: 0;
-        font-family: 'Playfair Display', serif; /* Menggunakan font serif estetik khas kuliner/resto premium */
-        font-weight: 700;
-        font-size: 28px;
-        letter-spacing: -0.2px;
-    }
-
-    .btn-back {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        text-decoration: none;
-        color: #5c6f66;
-        font-weight: 500;
-        padding: 8px 14px;
-        background-color: transparent;
-        border: 1px solid #e3e7e4;
-        border-radius: 10px;
-        font-size: 13.5px;
-        transition: all 0.2s ease;
-    }
-
-    .btn-back:hover {
-        background-color: #ffffff;
-        color: #111827;
-        border-color: #111827;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-    }
-
-    /* ─── CARD MODERN (CLEAN & SHARP SHADOW) ─── */
-    .culinary-card {
-        background: #ffffff; 
-        border-radius: 20px;
-        position: relative;
-        overflow: hidden;
-        /* Efek shadow berlapis tipis yang bikin card terlihat "mengambang" lembut */
-        box-shadow: 
-            0 1px 3px rgba(0,0,0,0.02),
-            0 10px 40px -10px rgba(15, 52, 39, 0.06); 
-        border: 1px solid #eef1ef;
-    }
-
-    .card-accent-line {
-        height: 4px;
-        background: #1e5236;
-        width: 100%;
-    }
-
-    .culinary-form { 
-        padding: 32px 40px; 
-    }
-
-    /* ─── FORM INPUTS (STYLE STRIPE / APPLE) ─── */
-    .form-group { 
-        margin-bottom: 22px; 
-    }
-
-    .form-group label {
-        display: block;
-        margin-bottom: 8px;
-        color: #374151;
-        font-weight: 500;
-        font-size: 13.5px;
-    }
-
-    /* Input text */
-    .form-group input[type="text"] {
-        width: 100%;
-        padding: 12px 16px;
-        background-color: #ffffff;
-        border: 1px solid #dcdfdc;
-        border-radius: 10px;
-        font-size: 14.5px;
-        font-family: inherit;
-        color: #111827;
-        box-sizing: border-box;
-        transition: all 0.15s ease;
-        box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);
-    }
-
-    .form-group input[type="text"]::placeholder,
-    .price-input-group input[type="number"]::placeholder {
-        color: #9ca3af;
-        font-size: 14px;
-    }
-
-    .form-group input[type="text"]:focus {
-        outline: none;
-        border-color: #1e5236;
-        box-shadow: 0 0 0 3px rgba(30, 82, 54, 0.12);
-    }
-
-    /* ─── PRICE INPUT GROUP ─── */
-    .price-input-group { 
-        display: flex; 
-        width: 100%; 
-    }
-
-    .currency-addon {
-        background: #f4f6f4;
-        color: #4b5563;
-        padding: 12px 16px;
-        font-weight: 600;
-        border: 1px solid #dcdfdc;
-        border-right: none;
-        border-radius: 10px 0 0 10px;
-        font-size: 14.5px;
-        display: flex;
-        align-items: center;
-        user-select: none;
-    }
-
-    .price-input-group input[type="number"] {
-        flex: 1;
-        padding: 12px 16px;
-        background-color: #ffffff;
-        border: 1px solid #dcdfdc;
-        border-radius: 0 10px 10px 0;
-        font-size: 14.5px;
-        font-family: inherit;
-        color: #111827;
-        box-sizing: border-box;
-        transition: all 0.15s ease;
-        box-shadow: inset 0 1px 2px rgba(0,0,0,0.02);
-    }
-
-    /* Sinergi warna border saat fokus */
-    .price-input-group:focus-within .currency-addon {
-        border-color: #1e5236;
-        background-color: #edf2ee;
-        color: #1e5236;
-    }
-
-    .price-input-group input[type="number"]:focus {
-        outline: none;
-        border-color: #1e5236;
-        box-shadow: 0 0 0 3px rgba(30, 82, 54, 0.12);
-    }
-
-    /* Hilangkan panah spinner bawaan browser pada input type="number" */
-    .price-input-group input[type="number"]::-webkit-outer-spin-button,
-    .price-input-group input[type="number"]::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
-
-    /* ─── DIVIDER ─── */
-    .form-divider {
-        height: 1px;
-        background: #eef1ef;
-        margin: 28px 0;
-    }
-
-    /* ─── BUTTONS ACTION (PREMIUM INTERACTION) ─── */
-    .action-buttons { 
-        display: flex; 
-        justify-content: flex-end; 
-        gap: 12px; 
-    }
-
-    .btn-reset {
-        background-color: transparent;
-        color: #4b5563;
-        border: 1px solid transparent;
-        padding: 12px 20px;
-        border-radius: 10px;
-        cursor: pointer;
-        font-weight: 500;
-        font-size: 14px;
-        font-family: inherit;
-        transition: all 0.15s ease;
-    }
-
-    .btn-reset:hover {
-        background-color: #f3f4f6;
-        color: #1f2937;
-    }
-
-    .btn-submit {
-        background-color: #1e5236; /* Hijau Botol tua yang sangat elegan */
-        color: #ffffff;
-        border: 1px solid #143825;
-        padding: 12px 24px;
-        border-radius: 10px;
-        cursor: pointer;
-        font-weight: 600;
-        font-size: 14px;
-        font-family: inherit;
-        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-        transition: all 0.15s ease;
-    }
-
-    .btn-submit:hover {
-        background-color: #143825;
-        box-shadow: 0 4px 12px rgba(30, 82, 54, 0.15);
-    }
-
-    .btn-submit:active {
-        transform: scale(0.98); /* Efek membal saat ditekan */
-    }
-
-    /* ─── RESPONSIVE ─── */
-    @media (max-width: 576px) {
-        .culinary-form { 
-            padding: 24px 20px; 
-        }
-        .action-buttons { 
-            flex-direction: column-reverse; 
-            gap: 8px;
-        }
-        .btn-reset, .btn-submit { 
-            width: 100%; 
-            padding: 14px;
-        }
-    }
-</style>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
