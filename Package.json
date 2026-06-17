@@ -4,7 +4,7 @@
   "description": "Catering Management System - Final Project SBD",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "nodemon app.js",
     "dev": "nodemon app.js",
     "db:init": "mysql -u root -p db_restoran < database/init.sql"
   },
