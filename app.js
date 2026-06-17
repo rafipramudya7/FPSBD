@@ -1,7 +1,7 @@
 const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
-require("dotenv").config();
+require("dotenv").config({ path: path.join(__dirname, ".env") });
 
 const app = express();
 
@@ -29,8 +29,20 @@ app.get("/", (req, res) => {
 });
 
 const PORT = 3000;
+const rawMongoUri = process.env.MONGODB_URI && process.env.MONGODB_URI.trim();
+
+if (!rawMongoUri) {
+  throw new Error("MONGODB_URI is not set in .env");
+}
+
+const mongoUri = new URL(rawMongoUri);
+
+if (process.env.MONGODB_DB) {
+  mongoUri.pathname = `/${process.env.MONGODB_DB}`;
+}
+
 mongoose
-  .connect(process.env.MONGODB_URI + process.env.DB_NAME)
+  .connect(mongoUri.toString())
   .then(() => {
     console.log("MongoDB Connected");
   })

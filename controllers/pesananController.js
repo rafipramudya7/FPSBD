@@ -18,7 +18,7 @@ exports.createForm = async (req, res) => {
 
 exports.store = async (req, res) => {
     try {
-        const { id_pelanggan, id_karyawan, id_menu, jumlah_porsi, alamat_tujuan, metode_pembayaran } = req.body;
+        const { id_pelanggan, id_karyawan, id_menu, jumlah_porsi, alamat_tujuan, metode_pembayaran, catatan } = req.body;
 
         const menuArray = Array.isArray(id_menu) ? id_menu : [id_menu];
         const porsiArray = Array.isArray(jumlah_porsi) ? jumlah_porsi : [jumlah_porsi];
@@ -50,6 +50,12 @@ exports.store = async (req, res) => {
             return res.send('Gagal memproses pesanan: Tidak ada menu valid yang dipilih.');
         }
 
+        const [catkusResult] = await db.query(
+            `INSERT INTO CATATAN_KHUSUS (Catatan) VALUES (?)`,
+            [catatan || '']
+        );
+        const idCatkus = catkusResult.insertId;
+
         const [pengirimanResult] = await db.query(
             `INSERT INTO TABLE_PENGIRIMAN (ID_Karyawan, Waktu_Kirim, Alamat_Tujuan, Status_Pengiriman) VALUES (?, NOW(), ?, ?)`,
             [id_karyawan, alamat_tujuan, 'Pending']
@@ -57,8 +63,8 @@ exports.store = async (req, res) => {
         const idPengiriman = pengirimanResult.insertId;
 
         const [transaksiResult] = await db.query(
-            `INSERT INTO TABLE_TRANSAKSI (ID_Pelanggan, ID_Pengiriman, Tanggal_Pemesanan, Total_Harga, ID_Karyawan) VALUES (?, ?, NOW(), ?, ?)`,
-            [id_pelanggan, idPengiriman, totalHargaTransaksi, id_karyawan]
+            `INSERT INTO TABLE_TRANSAKSI (ID_Pelanggan, ID_Pengiriman, ID_Catkus, Tanggal_Pemesanan, Total_Harga, ID_Karyawan) VALUES (?, ?, ?, NOW(), ?, ?)`,
+            [id_pelanggan, idPengiriman, idCatkus, totalHargaTransaksi, id_karyawan]
         );
         const idTransaksi = transaksiResult.insertId;
 
@@ -88,12 +94,13 @@ exports.showInvoice = async (req, res) => {
         const { id_transaksi } = req.params;
 
         const [transaksi] = await db.query(
-            `SELECT t.ID_Transaksi, p.Nama_Pelanggan, m.Nama_Menu, d.Jumlah_Porsi, d.Total_Sub_Harga, t.Total_Harga, b.Status AS Status_Bayar, b.Metode_Pembayaran
+            `SELECT t.ID_Transaksi, p.Nama_Pelanggan, m.Nama_Menu, d.Jumlah_Porsi, d.Total_Sub_Harga, t.Total_Harga, b.Status AS Status_Bayar, b.Metode_Pembayaran, ck.Catatan
              FROM TABLE_TRANSAKSI t
              JOIN TABLE_PELANGGAN p ON t.ID_Pelanggan = p.ID_Pelanggan
              JOIN TABLE_DETAIL d ON t.ID_Transaksi = d.ID_Transaksi
              JOIN TABLE_MENU m ON d.ID_Menu = m.ID_Menu
              JOIN TABLE_PEMBAYARAN b ON t.ID_Transaksi = b.ID_Transaksi
+             LEFT JOIN CATATAN_KHUSUS ck ON t.ID_Catkus = ck.ID_Catkus
              WHERE t.ID_Transaksi = ?`,
             [id_transaksi]
         );
