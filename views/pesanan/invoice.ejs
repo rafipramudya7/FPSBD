@@ -22,6 +22,10 @@
                             <td>: <%= data[0].Nama_Pelanggan %></td>
                         </tr>
                         <tr>
+                            <td><strong>Catatan Khusus</strong></td>
+                            <td>: <span class="text-muted italic"><%= data[0].Catatan || '-' %></span></td>
+                        </tr>
+                        <tr>
                             <td><strong>Total Tagihan</strong></td>
                             <td>: <span class="text-danger fw-bold fs-5">Rp <%= data[0].Total_Harga.toLocaleString('id-ID') %></span></td>
                         </tr>
