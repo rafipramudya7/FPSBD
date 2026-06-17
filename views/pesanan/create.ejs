@@ -74,7 +74,7 @@
                         <tbody id="container-baris">
                             <tr>
                                 <td>
-                                    <select name="id_menu[]" class="form-select" required>
+                                    <select name="id_menu" class="form-select" required>
                                         <option value="">-- Pilih Menu --</option>
                                         <% menu.forEach(function(m) { %>
                                             <option value="<%= m.ID_Menu %>"><%= m.Nama_Menu %> - Rp <%= m.Harga.toLocaleString('id-ID') %></option>
@@ -82,7 +82,7 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="number" name="jumlah_porsi[]" class="form-control" min="1" value="1" required>
+                                    <input type="number" name="jumlah_porsi" class="form-control" min="1" value="1" required>
                                 </td>
                                 <td class="text-center">
                                     <button type="button" class="btn btn-outline-danger btn-sm btn-hapus-baris" disabled>
@@ -97,7 +97,7 @@
 
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-danger btn-lg fw-bold shadow-sm">
-                    <i class="bi bi-credit-card-2-back-fill me-2"></i> Proses & Bayar via Gateway
+                    <i class="bi bi-credit-card-2-back-fill me-2"></i> Proses & Bayar
                 </button>
             </div>
         </form>

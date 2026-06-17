@@ -14,29 +14,69 @@
                     <h5><i class="bi bi-clock-history"></i> Menunggu Pembayaran</h5>
                 </div>
                 <div class="card-body p-4">
-                    <h5 class="text-center text-muted mb-4">INVOICE #00<%= data.ID_Transaksi %></h5>
+                    <h5 class="text-center text-muted mb-4">INVOICE #00<%= data[0].ID_Transaksi %></h5>
                     
-                    <table class="table table-borderless align-middle">
+                    <table class="table table-borderless align-middle mb-3">
                         <tr>
-                            <td><strong>Nama Pemesan</strong></td>
-                            <td>: <%= data.Nama_Pelanggan %></td>
-                        </tr>
-                        <tr>
-                            <td><strong>Menu Dipesan</strong></td>
-                            <td>: <%= data.Nama_Menu %> (<%= data.Jumlah_Porsi %> Porsi)</td>
+                            <td style="width: 35%"><strong>Nama Pemesan</strong></td>
+                            <td>: <%= data[0].Nama_Pelanggan %></td>
                         </tr>
                         <tr>
                             <td><strong>Total Tagihan</strong></td>
-                            <td>: <span class="text-danger fw-bold fs-5">Rp <%= data.Total_Harga.toLocaleString('id-ID') %></span></td>
+                            <td>: <span class="text-danger fw-bold fs-5">Rp <%= data[0].Total_Harga.toLocaleString('id-ID') %></span></td>
                         </tr>
                         <tr>
                             <td><strong>Status Saat Ini</strong></td>
-                            <td>: <span class="badge bg-danger"><%= data.Status_Bayar %></span></td>
+                            <td>: <span class="badge bg-danger"><%= data[0].Status_Bayar %></span></td>
                         </tr>
                     </table>
 
-                    <form action="/pesanan/pembayaran/<%= data.ID_Transaksi %>" method="POST" class="mt-4">
-                        <div class="d-grid">
+                    <div class="card mb-4 bg-light-subtle">
+                        <div class="card-header bg-secondary text-white py-2 small fw-bold">
+                            <i class="bi bi-card-list me-1"></i> Rincian Menu Dipesan
+                        </div>
+                        <div class="p-0 table-responsive">
+                            <table class="table table-sm table-striped mb-0 small align-middle">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th class="ps-3">Menu</th>
+                                        <th class="text-center">Porsi</th>
+                                        <th class="text-end pe-3">Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% data.forEach(function(item) { %>
+                                        <tr>
+                                            <td class="ps-3"><%= item.Nama_Menu %></td>
+                                            <td class="text-center"><%= item.Jumlah_Porsi %>x</td>
+                                            <td class="text-end pe-3">Rp <%= item.Total_Sub_Harga.toLocaleString('id-ID') %></td>
+                                        </tr>
+                                    <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <form action="/pesanan/pembayaran/<%= data[0].ID_Transaksi %>" method="POST" class="mt-4 border p-3 rounded bg-light">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold text-dark"><i class="bi bi-cash-coin me-1"></i> Pilih Metode Pembayaran:</label>
+        
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="metode_pembayaran" id="pay_qris" value="QRIS (Gateway)" checked>
+                                <label class="form-check-label" for="pay_qris">
+                                    <i class="bi bi-qr-code-scan me-1"></i> QRIS (Gateway Otomatis)
+                                </label>
+                            </div>
+
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="metode_pembayaran" id="pay_tf" value="Transfer Bank">
+                                <label class="form-check-label" for="pay_tf">
+                                    <i class="bi bi-bank me-1"></i> Transfer Bank / Virtual Account
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="d-grid mt-3">
                             <button type="submit" class="btn btn-success btn-lg fw-bold shadow-sm">
                                 <i class="bi bi-wallet2 me-2"></i> Klik untuk Melunasi Pembayaran
                             </button>
