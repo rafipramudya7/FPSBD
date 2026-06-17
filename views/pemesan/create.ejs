@@ -1,35 +1,104 @@
-<div class="container mt-4">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2>Tambah Pemesan Baru</h2>
-        <a href="/pemesan" class="btn btn-secondary btn-sm">← Kembali</a>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Pelanggan - FPSBD Catering</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        body { background-color: #f8f9fa; }
+        .form-card { border: none; border-radius: 12px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
+        .page-header { background: white; border-radius: 12px; border: 1px solid #e9ecef; padding: 28px 32px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
+        .icon-header { width: 48px; height: 48px; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; margin-right: 14px; }
+        
+        .form-label { font-size: 14px; font-weight: 600; color: #495057; margin-bottom: 8px; }
+        .form-control { border-radius: 8px; padding: 10px 14px; font-size: 14px; border-color: #dee2e6; }
+        .form-control:focus { border-color: #ffc107; box-shadow: 0 0 0 0.25rem rgba(255, 193, 7, 0.15); }
+        .input-group-text { background-color: #f1f3f5; border-color: #dee2e6; border-radius: 8px 0 0 8px; color: #495057; font-weight: 600; }
+        .input-group .form-control { border-radius: 0 8px 8px 0; }
+        
+        .btn-custom { border-radius: 8px; font-size: 14px; font-weight: 500; padding: 10px 20px; transition: all 0.2s; }
+        .btn-simpan { background-color: #ffc107; color: #212529; border: none; font-weight: 600; }
+        .btn-simpan:hover { background-color: #e0a800; color: #212529; }
+        .btn-reset { background-color: #f1f3f5; color: #495057; border: none; }
+        .btn-reset:hover { background-color: #e9ecef; color: #212529; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark shadow-sm mb-4">
+    <div class="container">
+        <span class="navbar-brand mb-0 h1">
+            <i class="bi bi-egg-fried me-2 text-warning"></i> FPSBD Catering Management
+        </span>
+    </div>
+</nav>
+
+<div class="container pb-5">
+
+    <div class="page-header d-flex align-items-center justify-content-between flex-wrap gap-3">
+        <div class="d-flex align-items-center">
+            <div class="icon-header bg-warning bg-gradient text-dark shadow-sm">
+                <i class="bi bi-person-plus-fill fs-4"></i>
+            </div>
+            <div>
+                <h2 style="font-size:22px; font-weight:700; margin:0;">Tambah Pemesan Baru</h2>
+                <p style="color:#6c757d; margin:4px 0 0; font-size:14px;">Daftarkan profil konsumen baru ke dalam pangkalan data</p>
+            </div>
+        </div>
+        <div>
+            <a href="/pemesan" class="btn btn-outline-secondary d-flex align-items-center gap-1" style="border-radius:8px; font-size:14px;">
+                <i class="bi bi-arrow-left"></i> Kembali ke Data Pelanggan
+            </a>
+        </div>
     </div>
 
-    <div class="card shadow-sm">
-        <div class="card-body p-4">
+    <div class="card form-card">
+        <div class="card-body p-4 p-md-5">
             <form action="/pemesan/create" method="POST">
-                <div class="mb-3">
-                    <label for="nama_pelanggan" class="form-label font-weight-bold">Nama Lengkap Pelanggan</label>
-                    <input type="text" id="nama_pelanggan" name="nama_pelanggan" class="form-control" placeholder="Masukkan nama pelanggan" required>
+                
+                <div class="mb-4">
+                    <label for="nama_pelanggan" class="form-label">Nama Lengkap Pelanggan <span class="text-danger">*</span></label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-person"></i></span>
+                        <input type="text" id="nama_pelanggan" name="nama_pelanggan" class="form-control" placeholder="Masukkan nama pelanggan" required>
+                    </div>
                 </div>
 
-                <div class="mb-3">
-                    <label for="telepon" class="form-label font-weight-bold">No. HP / Telepon</label>
+                <div class="mb-4">
+                    <label for="telepon" class="form-label">No. HP / Telepon</label>
                     <div class="input-group">
                         <span class="input-group-text"><i class="bi bi-telephone"></i></span>
                         <input type="text" id="telepon" name="telepon" class="form-control" placeholder="Contoh: 0812XXXXXXXX">
                     </div>
                 </div>
 
-                <div class="mb-3">
-                    <label for="email" class="form-label font-weight-bold">Alamat Email</label>
-                    <input type="email" id="email" name="email" class="form-control" placeholder="Contoh: pelanggan@email.com">
+                <div class="mb-4">
+                    <label for="email" class="form-label">Alamat Email</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                        <input type="email" id="email" name="email" class="form-control" placeholder="Contoh: pelanggan@email.com">
+                    </div>
                 </div>
 
-                <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
-                    <button type="reset" class="btn btn-light me-md-2">Reset</button>
-                    <button type="submit" class="btn btn-success">Simpan Pelanggan</button>
+                <hr class="text-muted opacity-25 my-4">
+
+                <div class="d-flex justify-content-end gap-2">
+                    <button type="reset" class="btn btn-custom btn-reset">
+                        <i class="bi bi-arrow-counterclockwise me-1"></i> Reset
+                    </button>
+                    <button type="submit" class="btn btn-custom btn-simpan">
+                        <i class="bi bi-check-circle me-1"></i> Simpan Pelanggan
+                    </button>
                 </div>
+
             </form>
         </div>
     </div>
+
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
