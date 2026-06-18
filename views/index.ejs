@@ -10,6 +10,7 @@
     <style>
         body {
             background-color: #f8f9fa;
+            padding-bottom: 50px;
         }
 
         .dashboard-card {
@@ -40,7 +41,7 @@
     <nav class="navbar navbar-dark bg-dark shadow-sm mb-5">
         <div class="container">
             <span class="navbar-brand mb-0 h1">
-                <i class="bi bi-egg-fried me-2 text-warning"></i> FPSBD Katering Management
+                <i class="bi bi-egg-fried me-2 text-warning"></i> FPSBD Catering Management
             </span>
         </div>
     </nav>
@@ -49,7 +50,10 @@
         <div class="p-4 p-md-5 mb-4 rounded text-body-emphasis bg-white border shadow-sm">
             <div class="col-lg-8 px-0">
                 <h1 class="display-5 fw-bold text-dark">Sistem Manajemen Katering</h1>
-                <p class="lead my-3 text-muted">Selamat datang di sistem informasi manajemen Katering. Pakai Menu dibawah ini untuk mengelola caterign 😇😇.</p>
+                <p class="lead text-muted" style="line-height: 1.5;">
+                    Selamat datang di sistem informasi manajemen katering<br>
+                    Pakai menu dibawah ini untuk mengelola katering 😇😇
+                </p>
             </div>
         </div>
 
@@ -62,7 +66,7 @@
                             <i class="bi bi-people-fill fs-3"></i>
                         </div>
                         <h5 class="card-title fw-bold">Karyawan</h5>
-                        <p class="card-text text-muted small">Kelola data karyawan Katering.</p>
+                        <p class="card-text text-muted small">Kelola data karyawan seperti nama, jabatan, dan nomor kontak.</p>
                         <a href="/karyawan" class="btn btn-primary w-100 mt-2">Buka Data</a>
                     </div>
                 </div>
@@ -75,7 +79,7 @@
                             <i class="bi bi-journal-text fs-3"></i>
                         </div>
                         <h5 class="card-title fw-bold">Menu Kuliner</h5>
-                        <p class="card-text text-muted small">Data menu makanan  untuk melakukanpemesanan.</p>
+                        <p class="card-text text-muted small">Kelola daftar menu makanan dan minuman yang tersedia.</p>
                         <a href="/menu" class="btn btn-success w-100 mt-2">Buka Data</a>
                     </div>
                 </div>
@@ -88,7 +92,7 @@
                             <i class="bi bi-person-lines-fill fs-3"></i>
                         </div>
                         <h5 class="card-title fw-bold">Pemesan</h5>
-                        <p class="card-text text-muted small">Kelola data pelanggan tetap nomor kontak dan email.</p>
+                        <p class="card-text text-muted small">Kelola data pemesan seperti nama, email, dan nomor kontak.</p>
                         <a href="/pemesan" class="btn btn-warning w-100 text-dark fw-bold mt-2">Buka Data</a>
                     </div>
                 </div>
@@ -102,7 +106,7 @@
                             <i class="bi bi-cart-plus-fill fs-3"></i>
                         </div>
                         <h5 class="card-title fw-bold text-danger">Lakukan Pesanan</h5>
-                        <p class="card-text text-muted small">Buat pemesanan baru untuk pelanggan.</p>
+                        <p class="card-text text-muted small">Buat transaksi pemesanan baru untuk pelanggan.</p>
                         <a href="/pesanan/create" class="btn btn-danger w-100 mt-2 fw-bold shadow-sm">Mulai
                             Transaksi</a>
                     </div>
@@ -115,7 +119,7 @@
                             <i class="bi bi-clipboard2-data-fill fs-3"></i>
                         </div>
                         <h5 class="card-title fw-bold">Log Pemesanan</h5>
-                        <p class="card-text text-muted small">Riwayat transaksi, status pengiriman & pembayaran.</p>
+                        <p class="card-text text-muted small">Lihat riwayat transaksi, status pengiriman, dan pembayaran.</p>
                         <a href="/logPemesanan" class="btn btn-info w-100 mt-2 fw-bold text-white">Lihat Log</a>
                     </div>
                 </div>
