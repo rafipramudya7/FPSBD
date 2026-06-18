@@ -129,7 +129,16 @@ exports.processPayment = async (req, res) => {
              WHERE ID_Transaksi = ?`,
             [metode_pembayaran, id_transaksi]
         );
-
+        const [trxRows] = await db.query(
+            `SELECT ID_Pengiriman FROM TABLE_TRANSAKSI WHERE ID_Transaksi = ?`,
+            [id_transaksi]
+        );
+        if (trxRows.length > 0 && trxRows[0].ID_Pengiriman) {
+            await db.query(
+                `UPDATE TABLE_PENGIRIMAN SET Status_Pengiriman = 'Proses' WHERE ID_Pengiriman = ?`,
+                [trxRows[0].ID_Pengiriman]
+            );
+        }
         const [transaksi] = await db.query(
             `SELECT t.ID_Transaksi, p.Nama_Pelanggan, t.Total_Harga, b.Status AS Status_Bayar
              FROM TABLE_TRANSAKSI t

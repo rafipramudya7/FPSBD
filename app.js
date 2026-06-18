@@ -18,7 +18,8 @@ const karyawanRoutes = require("./routes/karyawanRoutes");
 const menuRoutes = require("./routes/menuRoutes");
 const pesananRoutes = require("./routes/pesananRoutes");
 const commentRoute = require("./routes/commentarRoutes");
-
+const logRoutes = require("./routes/logRoutes");
+app.use("/logPemesanan", logRoutes);
 app.use("/commentar", commentRoute);
 app.use("/pesanan", pesananRoutes);
 app.use("/pemesan", pemesanRoutes);

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log Pemesanan - FPSBD Catering</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        body { background-color: #f8f9fa; }
+        .table-card { border: none; border-radius: 12px; overflow: hidden; }
+        .table thead th { background-color: #212529; color: #fff; font-weight: 500; font-size: 14px; padding: 14px 16px; border: none; }
+        .table tbody tr { transition: background 0.15s; }
+        .table tbody tr:hover { background-color: #f0f4ff; }
+        .table tbody td { padding: 13px 16px; vertical-align: middle; font-size: 14px; color: #343a40; border-color: #f0f0f0; }
+        .no-circle { width: 30px; height: 30px; background-color: #dee2e6; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; color: #495057; }
+        .page-header { background: white; border-radius: 12px; border: 1px solid #e9ecef; padding: 28px 32px; margin-bottom: 24px; box-shadow: 0 1px 4px rgba(0,0,0,0.05); }
+        .icon-header { width: 48px; height: 48px; background: #0ca678; border-radius: 12px; display: inline-flex; align-items: center; justify-content: center; margin-right: 14px; }
+        .table-footer { border-top: 1px solid #f0f0f0; background: #fafafa; }
+        .badge-jabatan { background-color: #e8f0fe; color: #3b5bdb; font-weight: 500; font-size: 12px; padding: 5px 10px; border-radius: 20px; display: inline-block; }
+        .badge-kode { background-color: #212529; color: #fff; font-family: monospace; font-size: 12px; padding: 4px 10px; border-radius: 6px; display: inline-block; }
+        .rupiah { font-family: monospace; font-weight: 600; }
+
+        /* Status bulat */
+        .status-dot {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: #fff;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+            border: none;
+            cursor: default;
+            transition: filter 0.15s, transform 0.15s;
+        }
+        .status-dot.clickable {
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .status-dot.clickable:hover { filter: brightness(82%); transform: scale(1.13); }
+
+        /* Warna baru */
+        .dot-hijau  { background-color: #2f9e44; }  /* selesai / lunas */
+        .dot-kuning { background-color: #e67700; }  /* proses */
+        .dot-merah  { background-color: #c92a2a; }  /* pending / belum */
+        .dot-abu    { background-color: #868e96; }  /* tidak diketahui */
+
+        .status-label { font-size: 10px; color: #868e96; display: block; margin-top: 3px; }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark shadow-sm mb-4">
+    <div class="container">
+        <span class="navbar-brand mb-0 h1">
+            <i class="bi bi-egg-fried me-2 text-warning"></i> FPSBD Catering Management
+        </span>
+    </div>
+</nav>
+
+<div class="container pb-5">
+
+    <div class="page-header d-flex align-items-center justify-content-between flex-wrap gap-3">
+        <div class="d-flex align-items-center">
+            <div class="icon-header">
+                <i class="bi bi-clipboard2-data-fill text-white fs-4"></i>
+            </div>
+            <div>
+                <h2 style="font-size:22px; font-weight:700; margin:0;">Log Pemesanan</h2>
+                <p style="color:#6c757d; margin:4px 0 0; font-size:14px;">Riwayat transaksi</p>
+            </div>
+        </div>
+        <div class="d-flex gap-2">
+            <a href="/" class="btn btn-outline-secondary d-flex align-items-center gap-1" style="border-radius:8px; font-size:14px;">
+                <i class="bi bi-arrow-left"></i> Kembali
+            </a>
+        </div>
+    </div>
+
+    <!-- Legend -->
+    <div class="d-flex flex-wrap gap-3 mb-3 align-items-center px-1">
+        <small class="text-muted fw-semibold">Keterangan:</small>
+        <span class="d-flex align-items-center gap-1">
+            <span class="status-dot dot-merah" style="width:16px;height:16px;font-size:8px;">!</span>
+            <small class="text-muted">Pending / Belum Bayar</small>
+        </span>
+        <span class="d-flex align-items-center gap-1">
+            <span class="status-dot dot-kuning" style="width:16px;height:16px;font-size:8px;">→</span>
+            <small class="text-muted">Sedang Diproses</small>
+        </span>
+        <span class="d-flex align-items-center gap-1">
+            <span class="status-dot dot-hijau" style="width:16px;height:16px;font-size:8px;">✓</span>
+            <small class="text-muted">Selesai / Lunas</small>
+        </span>
+        <small class="text-muted ms-1">
+    
+        </small>
+    </div>
+
+    <div class="card shadow-sm table-card">
+        <div class="table-responsive">
+            <table class="table mb-0">
+                <thead>
+                    <tr>
+                        <th style="width:56px;">No</th>
+                        <th>Kode</th>
+                        <th>Tanggal</th>
+                        <th>Nama Pelanggan</th>
+                        <th>Eksekutor</th>
+                        <th>Total Harga</th>
+                        <th style="width:110px; text-align:center;">Status Kirim</th>
+                        <th style="width:110px; text-align:center;">Status Bayar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <% if (transaksi.length === 0) { %>
+                    <tr>
+                        <td colspan="8" class="text-center py-5 text-muted">
+                            <i class="bi bi-inbox fs-1 d-block mb-2 text-secondary"></i>
+                            Belum ada data transaksi
+                        </td>
+                    </tr>
+                <% } %>
+
+                <% transaksi.forEach(function(t, i) {
+                    // ===== STATUS KIRIM =====
+                    let kirimClass = 'dot-abu', kirimIcon = '?', kirimLabel = t.Status_Pengiriman || '-';
+                    const sk = (t.Status_Pengiriman || '').toLowerCase();
+                    const kirimSelesai = sk.includes('selesai') || sk.includes('sampai');
+                    const kirimProses  = sk.includes('proses') || sk.includes('dikirim');
+                    if (kirimSelesai)      { kirimClass = 'dot-hijau';  kirimIcon = '✓'; }
+                    else if (kirimProses)  { kirimClass = 'dot-kuning'; kirimIcon = '→'; }
+                    else                   { kirimClass = 'dot-merah';  kirimIcon = '!'; }
+
+                    // ===== STATUS BAYAR =====
+                    let bayarClass = 'dot-abu', bayarIcon = '?', bayarLabel = t.Status_Pembayaran || '-';
+                    const sb = (t.Status_Pembayaran || '').toLowerCase();
+                    const bayarLunas = sb.includes('lunas') || sb.includes('selesai') || sb.includes('berhasil');
+                    const bayarProses = sb.includes('proses');
+                    if (bayarLunas)        { bayarClass = 'dot-hijau';  bayarIcon = '✓'; }
+                    else if (bayarProses)  { bayarClass = 'dot-kuning'; bayarIcon = '→'; }
+                    else                   { bayarClass = 'dot-merah';  bayarIcon = '!'; }
+                %>
+                <tr>
+                    <td><span class="no-circle"><%= i + 1 %></span></td>
+                    <td><span class="badge-kode">#TRX-<%= String(t.ID_Transaksi).padStart(3,'0') %></span></td>
+                    <td style="font-size:13px;">
+                        <%= new Date(t.Tanggal_Pemesanan).toLocaleDateString('id-ID', {day:'2-digit',month:'short',year:'numeric'}) %>
+                        <br>
+                        <span class="text-muted" style="font-size:12px;">
+                            <%= new Date(t.Tanggal_Pemesanan).toLocaleTimeString('id-ID', {hour:'2-digit',minute:'2-digit'}) %>
+                        </span>
+                    </td>
+                    <td>
+                        <i class="bi bi-person-circle text-primary me-1"></i>
+                        <span style="font-weight:500;"><%= t.Nama_Pelanggan || '-' %></span>
+                    </td>
+                    <td>
+                        <% if (t.Nama_Karyawan) { %>
+                            <i class="bi bi-person-badge text-success me-1"></i>
+                            <span style="font-weight:500;"><%= t.Nama_Karyawan %></span>
+                            <% if (t.Jabatan) { %>
+                                <br><span class="badge-jabatan mt-1"><i class="bi bi-briefcase-fill me-1"></i><%= t.Jabatan %></span>
+                            <% } %>
+                        <% } else { %>
+                            <span class="text-muted fst-italic">-</span>
+                        <% } %>
+                    </td>
+                    <td class="rupiah">Rp <%= t.Total_Harga ? t.Total_Harga.toLocaleString('id-ID') : '0' %></td>
+
+                    <!-- STATUS KIRIM -->
+                    <td class="text-center">
+                        <% if (!kirimSelesai && t.ID_Pengiriman) { %>
+                            <!-- Bisa diklik → konfirmasi selesaikan -->
+                            <button
+                                class="status-dot clickable <%= kirimClass %>"
+                                title="Klik untuk ubah jadi Selesai"
+                                onclick="konfirmasiSelesai('<%= t.ID_Pengiriman %>', '<%= t.Nama_Pelanggan %>')"
+                            ><%= kirimIcon %></button>
+                        <% } else { %>
+                            <span class="status-dot <%= kirimClass %>" title="<%= kirimLabel %>"><%= kirimIcon %></span>
+                        <% } %>
+                        <span class="status-label"><%= kirimLabel %></span>
+                    </td>
+
+                    <!-- STATUS BAYAR -->
+                    <td class="text-center">
+                        <a
+                            href="/pesanan/invoice/<%= t.ID_Transaksi %>"
+                            class="status-dot clickable <%= bayarClass %>"
+                            title="<%= bayarLabel %> — klik untuk invoice"
+                        ><%= bayarIcon %></a>
+                        <span class="status-label"><%= bayarLabel %></span>
+                    </td>
+                </tr>
+                <% }) %>
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex align-items-center justify-content-between px-4 py-3 table-footer">
+            <span style="font-size:13px; color:#868e96;">
+                Menampilkan <strong><%= transaksi.length %></strong> transaksi
+            </span>
+            <span style="font-size:13px; color:#868e96;">
+                <i class="bi bi-clipboard2-data me-1"></i>Total: <%= transaksi.length %>
+            </span>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Konfirmasi Selesaikan Pengiriman -->
+<div class="modal fade" id="modalSelesai" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="border-radius:12px; border:none;">
+            <div class="modal-header border-0 pb-0">
+                <h5 class="modal-title fw-bold">
+                    <i class="bi bi-truck text-success me-2"></i>Selesaikan Pengiriman
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-1">Tandai pengiriman untuk:</p>
+                <p class="fw-bold fs-5 mb-0" id="modalNamaPelanggan"></p>
+                <p class="text-muted small mt-2">Status pengiriman akan diubah menjadi <strong class="text-success">Selesai</strong>.</p>
+            </div>
+            <div class="modal-footer border-0 pt-0">
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal" style="border-radius:8px;">Batal</button>
+                <form id="formSelesai" method="POST">
+                    <button type="submit" class="btn btn-success" style="border-radius:8px;">
+                        <i class="bi bi-check-circle-fill me-1"></i>Ya, Selesaikan
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+function konfirmasiSelesai(idPengiriman, namaPelanggan) {
+    document.getElementById('modalNamaPelanggan').textContent = namaPelanggan || 'pelanggan ini';
+    document.getElementById('formSelesai').action = '/logPemesanan/selesaikan/' + idPengiriman;
+    new bootstrap.Modal(document.getElementById('modalSelesai')).show();
+}
+</script>
+</body>
+</html>
