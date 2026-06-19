@@ -127,7 +127,6 @@
                 <% } %>
 
                 <% transaksi.forEach(function(t, i) {
-                    // ===== STATUS KIRIM =====
                     let kirimClass = 'dot-abu', kirimIcon = '?', kirimLabel = t.Status_Pengiriman || '-';
                     const sk = (t.Status_Pengiriman || '').toLowerCase();
                     const kirimSelesai = sk.includes('selesai') || sk.includes('sampai');
@@ -136,7 +135,6 @@
                     else if (kirimProses)  { kirimClass = 'dot-kuning'; kirimIcon = '→'; }
                     else                   { kirimClass = 'dot-merah';  kirimIcon = '!'; }
 
-                    // ===== STATUS BAYAR =====
                     let bayarClass = 'dot-abu', bayarIcon = '?', bayarLabel = t.Status_Pembayaran || '-';
                     const sb = (t.Status_Pembayaran || '').toLowerCase();
                     const bayarLunas = sb.includes('lunas') || sb.includes('selesai') || sb.includes('berhasil');
